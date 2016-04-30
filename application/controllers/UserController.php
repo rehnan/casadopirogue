@@ -107,17 +107,19 @@ class UserController extends CI_Controller {
             	return redirect('account');
             }
 
-            $this->getPost($user);
+
+            	$this->user = (is_null($user)) ? $this->getUserModel() : $user;
+            	$this->user->setName($this->input->post("user[name]"));
+          	$this->user->setPhone1($this->input->post("user[phone1]"));
+          	$this->user->setPhone2($this->input->post("user[phone2]"));
 
             $datas = array(
             	'page_title' => $this->getTitle(),
             	'user' => $this->user
             	);
 
-            //Verificar se o usuário corrente logado é o mesmo usuário para
 
-            //Verifica se as informações do post são válidas
-            if(!$this->validate_post()) {
+            if(!$this->validate_post_update()) {
             	flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
             	return $this->template->load('users/edit', $datas);
             }
@@ -200,6 +202,24 @@ class UserController extends CI_Controller {
 
           	$this->form_validation->set_error_delimiters('<font size="3" color="red" class="error">', '</font><br>       ');
 
+          	return $this->form_validation->run();
+          }
+
+          public function validate_post_update () {
+          	$this->form_validation->set_rules('user[name]', 'Name', 'trim|required|max_length[50]',  array(
+          		'required'      => 'Caralho! %s.',
+          		'max_length'     => 'Cacete! %s'
+          		));
+
+          	$this->form_validation->set_rules('user[phone1]', 'Telefone 1', 'trim|required|max_length[30]', array(
+          		'required'      => 'Caralho! %s.',
+          		'max_length'     => 'Cacete! %s'
+          		));
+
+          	$this->form_validation->set_rules('user[phone2]', 'Telefone 2', 'trim|required|max_length[30]', array(
+          		'required'      => 'Caralho! %s.',
+          		'max_length'     => 'Cacete! %s'
+          		));
           	return $this->form_validation->run();
           }
 

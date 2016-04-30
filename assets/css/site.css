@@ -1,0 +1,266 @@
+/*
+--------------------------------------------
+ESTRUTURAÇÃO BASE (Palupa Framework v1)
+--------------------------------------------
+*** BODY
+**** TOPO
+**** RODAPÉ
+**** COPYRIGHT
+**** ESTILOS GERAIS PARA AS PÁGINAS
+**** ESTILOS GERAIS PARA AS PÁGINAS INTERNAS
+**** PÁGINA INICIAL
+**** PÁGINAS INTERNAS
+**** EXTRAS
+**** BOTÕES
+**** @MEDIA
+*/
+body{
+	font-family: "Roboto Condensed";
+}
+/* PÁGINA DE LOGIN */
+	.pg-login{
+		margin-top:30px;
+	}
+		.borda{
+			border:solid 1px #ccc;
+		}
+		.pg-login .login{
+			width: 100%;
+			max-width: 300px;
+			margin: 0 auto;
+		    min-height: 315px;
+		    display:block;
+	        padding-top: 50px;
+		}
+			.pg-login .login p{
+				font-size: 23px;
+				text-transform: uppercase;
+				font-weight: 600;
+				color:#EF6700;
+			}
+			.pg-login .login .form-group{
+				position:relative;
+			    width: 100%;
+		        height: 35px;
+	            margin-bottom: 20px;
+			}
+				.pg-login .login .form-group .form-control{
+					width:100%;
+					border-top: 0;
+					border-right: 0;
+					border-left: 0;
+					border-radius: 0;
+					-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+					box-shadow: inherit!important;
+					-webkit-transition: inherit!important;
+					-o-transition: inherit!important;
+					transition: inherit!important;
+				}				
+				.pg-login .login .form-group i{
+					
+				}
+					.pg-login .login .form-group  .entrar{
+						width: 100%;
+						max-width: 100px;
+						border-radius: 4px;
+						border: 0;
+						background: #AFAFAF;
+						color: #fff;
+						font-weight: 600;
+						font-size: 14px;
+						outline: none;
+					    height: 40px;
+					    margin-top: 40px;
+					    text-transform:uppercase;
+					}
+						.pg-login .login .form-group  .entrar:hover{
+							background:#FF6D00;
+						}
+			.pg-login .login .face{
+				background: #337ab7;
+				color: #fff;
+				height: 40px;
+				display: inline-block;
+				width: 100%;
+				max-width: 195px;
+				border-radius: 4px;
+				text-align: center;
+				line-height: 40px;
+				vertical-align: top;
+				padding-left: 30px;
+				font-weight: 600;
+				font-size: 14px;
+				position: relative;
+			    margin-top: 40px;
+			}
+				.pg-login .login .face i{
+					left: 0;
+					font-size: 25px;
+					border-right: solid 1px #fff;
+					height: 40px;
+					width: 40px;
+					padding: 8px 0;
+					text-align: center;
+					position:absolute;
+				}	
+			.pg-login .login .recuperar-senha{
+				display: block;
+				font-size: 12px;
+				color: #000;
+			}
+	.pg-login .cadastro{
+		width: 100%;
+		max-width: 300px;
+		margin: 0 auto;	
+	    min-height: 315px;
+	    display:block;
+        padding-top: 50px;
+	}
+		.pg-login .cadastro p{
+			font-size: 23px;
+			text-transform: uppercase;
+			font-weight: 600;
+			color:#EF6700;
+		}
+		.pg-login .cadastro .form-group{
+			position:relative;
+			width: 100%;
+			height: 35px;
+			margin-bottom: 20px;
+		}
+			.pg-login .cadastro .form-group .form-control{
+				width:100%;
+				border-top: 0;
+				border-right: 0;
+				border-left: 0;
+				border-radius: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+				box-shadow: inherit!important;
+				-webkit-transition: inherit!important;
+				-o-transition: inherit!important;
+				transition: inherit!important;
+			}
+			.pg-login .cadastro .form-group .cadastrar{
+				width: 100%;
+				max-width: 150px;
+				border-radius: 4px;
+				border: 0;
+				background: #AFAFAF;
+				color: #fff;
+				font-weight: 600;
+				font-size: 14px;
+				outline: none;
+				height: 40px;
+				margin-top: 10px;
+				text-transform: uppercase;
+			}
+				.pg-login .cadastro .form-group .cadastrar:hover{
+					background:#FF6D00;
+				}
+
+/* PÁGINA DE CADASTRO */
+	.pg-cadastro{
+		
+	}
+		.pg-cadastro .form-cadastro{
+			width: 100%;
+			max-width: 340px;
+			margin: 0 auto;
+		}
+			.pg-cadastro .form-cadastro p{
+				font-size: 23px;
+				text-transform: uppercase;
+				font-weight: 600;
+				color:#EF6700;
+				text-align:center;
+			}
+				.pg-cadastro .form-cadastro p i{
+
+				}
+			.pg-cadastro .form-cadastro .form-group{
+				position:relative;
+			    width: 100%;
+		        height: 35px;
+	            margin-bottom: 20px;
+			}
+				.pg-cadastro .form-cadastro .form-group .form-control{
+					width:100%;
+					border-top: 0;
+					border-right: 0;
+					border-left: 0;
+					border-radius: 0;
+					-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+					box-shadow: inherit!important;
+					-webkit-transition: inherit!important;
+					-o-transition: inherit!important;
+					transition: inherit!important;
+				}
+			.pg-cadastro .form-cadastro .cadastrar{
+				width: 100%;
+				max-width: 150px;
+				border-radius: 4px;
+				border: 0;
+				background: #AFAFAF;
+				color: #fff;
+				font-weight: 600;
+				font-size: 14px;
+				outline: none;
+				height: 40px;
+				margin-top: 10px;
+				text-transform: uppercase;
+			}
+				.pg-cadastro .form-cadastro .cadastrar:hover{
+					background:#FF6D00;
+				}
+
+/*PÁGINA MINHA CONTA */
+	.pg-minha-conta{
+		margin-top:30px;
+	}
+	.pg-minha-conta .borda{
+		border:solid 1px #ccc;;
+	}
+		.pg-minha-conta .sidebar{
+			width:100%;
+			padding:20px;
+
+		}
+			.pg-minha-conta .sidebar .perfil .foto{
+				background-size:cover!important;
+				background-position:center!important;
+				height: 90px;
+				width: 90px;
+				border-radius: 100%;
+				margin: 0 auto;
+				border: solid 1px #ccc;
+			}
+			.pg-minha-conta .sidebar .perfil {
+				text-align:center;
+			}
+			.pg-minha-conta .sidebar .perfil  span{
+				
+					color:#FF6D00;
+
+			}
+			.pg-minha-conta .sidebar .perfil  span a{
+				margin:0;
+				color:#337ab7;
+			}
+			.pg-minha-conta .sidebar a{
+				display:block;
+				display: block;
+				margin: 15px 0;
+				color: #6B6A6A;
+			}
+		.pg-minha-conta .frete{
+
+		}
+			.pg-minha-conta .frete input{
+	
+			}
+			.pg-minha-conta .frete .result{
+	
+			}
+			.pg-minha-conta .frete .calcular{
+	
+			}

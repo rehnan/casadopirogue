@@ -94,6 +94,44 @@ function form_sign_up($action_url, $new_user,  $params) {
 	echo form_close();
 }
 
+function form_update_account ($action_url, $new_user,  $params) {
+
+	echo form_open($action_url, $params);
+
+	echo form_label("Nome ", "name");
+	echo form_input(array(
+		"name" => "user[name]",
+		"id" => "name",
+		"class" => "form-control",
+		"value" => $new_user->getName()
+		));
+	echo "<p></p>";
+	echo form_label("Telefone 1", "phone1");
+	echo form_input(array(
+		"name" => "user[phone1]",
+		"id" => "phone1",
+		"class" => "form-control",
+		"value" => $new_user->getPhone1()
+		));
+	echo "<p>";
+	echo form_label("Telefone 2 ", "phone2");
+	echo form_input(array(
+		"name" => "user[phone2]",
+		"id" => "phone2",
+		"class" => "form-control",
+		"value" => $new_user->getPhone2()
+		));
+	echo "<p>";
+	echo form_button(array(
+		"class" => "btn btn-primary",
+		"content" => "Atualizar",
+		"type" => "submit"
+		));
+
+	echo form_close();
+
+}
+
 function form_update_password($action_url,  $params) {
 
 	echo form_open($action_url, $params);
