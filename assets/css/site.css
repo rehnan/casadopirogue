@@ -17,6 +17,89 @@ ESTRUTURAÇÃO BASE (Palupa Framework v1)
 body{
 	font-family: "Roboto Condensed";
 }
+/* PG */
+	.pg{
+
+	}
+	.pg .error{
+		color: red;
+		text-transform: uppercase;
+		font-style: italic;
+	}
+
+		.pg input,textarea {
+
+		}
+
+		::-webkit-input-placeholder {
+		   color: #828282!important;
+
+		}
+
+		:-moz-placeholder {
+		   color: #828282!important;
+
+		}
+
+		::-moz-placeholder {
+		   color: #828282!important;
+
+		}
+
+		:-ms-input-placeholder {
+		   color: #828282!important;
+
+		}
+
+
+		.pg .titulo{
+			font-size: 23px;
+			text-transform: uppercase;
+			font-weight: 600;
+			color:#EF6700;
+
+		}
+	.pg .sub-titulo{
+		text-align:center;
+		color:#FF6D00;
+	    margin: 20px 0 0;
+	    text-transform:uppercase;
+	    font-size:17px;
+	}
+		.pg .sub-titulo span{
+			font-weight:700;
+		}
+	.pg .info{
+		color: #FF6D00;
+		text-align: center;
+		display: block;
+		font-size: 17px;
+		margin-top: 60px;
+
+	}
+	.pg  .botoes{
+		text-align: center;
+	}
+	.pg  .botoes a{
+			width: 100%;
+			max-width: 150px;
+			border-radius: 4px;
+			border: 0;
+			background: #AFAFAF;
+			color: #fff;
+			font-weight: 600;
+			font-size: 14px;
+			outline: none;
+			height: 40px;
+			margin-top: 10px;
+			text-transform: uppercase;
+			display:inline-block;
+			line-height:40px;
+
+		}
+			.pg .botoes a:hover{
+				background:#FF6D00;
+			}
 /* PÁGINA DE LOGIN */
 	.pg-login{
 		margin-top:30px;
@@ -55,9 +138,9 @@ body{
 					-webkit-transition: inherit!important;
 					-o-transition: inherit!important;
 					transition: inherit!important;
-				}				
+				}
 				.pg-login .login .form-group i{
-					
+
 				}
 					.pg-login .login .form-group  .entrar{
 						width: 100%;
@@ -102,7 +185,7 @@ body{
 					padding: 8px 0;
 					text-align: center;
 					position:absolute;
-				}	
+				}
 			.pg-login .login .recuperar-senha{
 				display: block;
 				font-size: 12px;
@@ -111,7 +194,7 @@ body{
 	.pg-login .cadastro{
 		width: 100%;
 		max-width: 300px;
-		margin: 0 auto;	
+		margin: 0 auto;
 	    min-height: 315px;
 	    display:block;
         padding-top: 50px;
@@ -160,7 +243,7 @@ body{
 
 /* PÁGINA DE CADASTRO */
 	.pg-cadastro{
-		
+
 	}
 		.pg-cadastro .form-cadastro{
 			width: 100%;
@@ -173,6 +256,7 @@ body{
 				font-weight: 600;
 				color:#EF6700;
 				text-align:center;
+
 			}
 				.pg-cadastro .form-cadastro p i{
 
@@ -217,12 +301,22 @@ body{
 	.pg-minha-conta{
 		margin-top:30px;
 	}
+		.pg-minha-conta .titulo{
+			font-size: 23px;
+			text-transform: uppercase;
+			font-weight: 600;
+			color:#EF6700;
+
+		}
 	.pg-minha-conta .borda{
 		border:solid 1px #ccc;;
 	}
 		.pg-minha-conta .sidebar{
 			width:100%;
 			padding:20px;
+		    background: #F7F7F7;
+		    border-right:solid #ccc 1px;
+	        min-height: 400px;
 
 		}
 			.pg-minha-conta .sidebar .perfil .foto{
@@ -238,29 +332,361 @@ body{
 				text-align:center;
 			}
 			.pg-minha-conta .sidebar .perfil  span{
-				
+
 					color:#FF6D00;
 
 			}
-			.pg-minha-conta .sidebar .perfil  span a{
-				margin:0;
-				color:#337ab7;
-			}
-			.pg-minha-conta .sidebar a{
-				display:block;
+			.pg-minha-conta .sidebar .perfil  span .sair{
+				color: #337ab7;
 				display: block;
-				margin: 15px 0;
-				color: #6B6A6A;
+				width: 100%;
+				text-align: center;
+				margin:0 0 0 0;
 			}
-		.pg-minha-conta .frete{
+				.pg-minha-conta .sidebar .perfil  span .sair:hover{
+					color:#FF6D00;
+				}
+			.pg-minha-conta .sidebar .menu{
 
+				display: block;
+
+				color: #6B6A6A;
+				width: 100%;
+				max-width: 140px;
+				margin: 10px auto;
+			}
+				.pg-minha-conta .sidebar .menu:hover{
+
+					color:#FF6D00;
+				}
+		.pg-minha-conta .frete{
+			width: 100%;
+			max-width: 500px;
+			margin: 0 auto;
 		}
+			.pg-minha-conta .frete p{
+				text-align:center;
+				color:#FF6D00;
+			    margin: 20px 0 0;
+			    text-transform:uppercase;
+			    font-size:17px;
+			}
 			.pg-minha-conta .frete input{
-	
+				display:block;
+				margin:5px auto;
+				padding:5px;
 			}
 			.pg-minha-conta .frete .result{
-	
+
 			}
 			.pg-minha-conta .frete .calcular{
-	
+				width: 100%;
+				max-width: 150px;
+				border-radius: 4px;
+				border: 0;
+				background: #AFAFAF;
+				color: #fff;
+				font-weight: 600;
+				font-size: 14px;
+				outline: none;
+				height: 40px;
+				margin-top: 10px;
+				text-transform: uppercase;
 			}
+				.pg-minha-conta .frete .calcular:hover{
+					background:#FF6D00;
+				}
+				.pg-minha-conta .frete .result{
+					color:#FF6D00;
+					text-transform:uppercase;
+					font-weight:600;
+					font-size:17px;
+					margin-top:20px;
+				}
+	/* CORREÇÕES PÁGONA CALCULAR FRETE */
+	.pg-minha-conta .frete .correcaoY{
+		padding: 50px 0 0 0;
+	}
+	/* PÁGINA DADOS CADASTRAIS */
+	.pg-minha-conta .form-cadastro{
+			width: 100%;
+			max-width: 340px;
+			margin: 0 auto;
+		}
+			.pg-minha-conta .form-cadastro p{
+				font-size: 23px;
+				text-transform: uppercase;
+				font-weight: 600;
+				color:#EF6700;
+				text-align:center;
+				margin: 20px 0;
+			}
+				.pg-minha-conta .form-cadastro p i{
+
+				}
+			.pg-minha-conta .form-cadastro .form-group{
+				position:relative;
+			    width: 100%;
+		        height: 35px;
+	            margin-bottom: 20px;
+			}
+				.pg-minha-conta .form-cadastro .form-group .form-control{
+					width:100%;
+					border-top: 0;
+					border-right: 0;
+					border-left: 0;
+					border-radius: 0;
+					-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+					box-shadow: inherit!important;
+					-webkit-transition: inherit!important;
+					-o-transition: inherit!important;
+					transition: inherit!important;
+				}
+			.pg-minha-conta .form-cadastro .cadastrar{
+				width: 100%;
+				max-width: 150px;
+				border-radius: 4px;
+				border: 0;
+				background: #AFAFAF;
+				color: #fff;
+				font-weight: 600;
+				font-size: 14px;
+				outline: none;
+				height: 40px;
+				margin-top: 10px;
+				text-transform: uppercase;
+			}
+				.pg-minha-conta .form-cadastro .cadastrar:hover{
+					background:#FF6D00;
+				}
+		.pg-minha-conta .meus-pedios{
+			list-style:none;
+			margin:0;
+			padding:20px;
+		}
+			.pg-minha-conta .meus-pedios li{
+				display:inline-block;
+			   	margin: 0 50px 0 0;
+			}
+				.pg-minha-conta .meus-pedios p{
+					margin:0;
+				}
+					.pg-minha-conta .meus-pedios span{
+						font-weight:bold;
+					    color: #EF6700;
+					}
+				.pg-minha-conta .meus-pedios a{
+
+				}
+
+/* PÁGINA DE PEDIDOS */
+	.pg-pedido{
+
+	}
+		.pg-pedido .area-pedido{
+			border:solid 1px #ccc;
+			padding:10px;
+
+		}
+		.pg-pedido .form-control{
+			font-size: 16px;
+			height:50px;
+			color: #EF6700;
+
+		}
+		.pg-pedido .bg-fundo{
+			width:100%;
+		    min-height: 643px;
+			background-position:center!important;
+			background-size:cover!important;
+			background-attachment: fixed!important;
+
+		}
+			.pg-pedido .bg-fundo .lente{
+				width:100%;
+				    min-height: 643px;
+				background: rgba(0, 0, 0, 0.71);
+
+
+			}
+			.pg-pedido .bg-fundo .lente img{
+				width: 100%;
+				max-width: 165px;
+			}
+				.pg-pedido .form-group textarea{
+					height: 150px;
+					max-height: 150px;
+					width: 100%;
+					max-width: 570px;
+				}
+		.pg-pedido .info-opolitica{
+			width: 100%;
+			padding: 0 10px;
+		}
+			.pg-pedido .info-opolitica .panel-group{
+		        margin-bottom: 12px;
+			}
+				.pg-pedido .info-opolitica .panel-default>.panel-heading{
+				    height:50px;
+				    padding:0;
+				}
+					.pg-pedido .info-opolitica .panel-default>.panel-heading h4 a{
+						display: block;
+						width: 100%;
+						height: 50px;
+						line-height: 50px;
+						padding: 0 0 0 30px;
+					    position: relative;
+					    text-transform:uppercase;
+					}
+						.pg-pedido .info-opolitica .panel-default>.panel-heading h4 a:hover i{
+							color: #EF6700;
+						}
+						.pg-pedido .info-opolitica .panel-default>.panel-heading h4 a i{
+							position: absolute;
+							right: 0;
+							margin: 15px 20px 0;
+							font-size: 20px;
+						}
+					.pg-pedido .info-opolitica .panel-body{
+						padding:20px;
+					}
+			.pg-pedido .enviar{
+				width: 100%;
+				max-width: 170px;
+				border-radius: 4px;
+				border: 0;
+				background: #AFAFAF;
+				color: #fff;
+				font-weight: 600;
+				font-size: 14px;
+				outline: none;
+				height: 40px;
+				margin-top: 10px;
+				text-transform: uppercase;
+			}
+				.pg-pedido .enviar:hover{
+					background:#FF6D00;
+				}
+				.pg-pedido .checkbox-inline{
+					color:#FF6D00;
+					text-transform:uppercase;
+					margin:10px 0;
+				}
+				.pg-pedido .checkbox{
+					color:#FF6D00;
+					text-transform:uppercase;
+
+				}
+		.pg-pedido .meus-pedios{
+			list-style:none;
+			margin:0;
+			padding:20px;
+		}
+			.pg-pedido .meus-pedios li{
+				display:block;
+			   	margin:25px 50px 0 0;
+		   	    width: 100%;
+		   	    position:relative;
+			}
+				.pg-pedido .meus-pedios li .radio{
+					position:absolute;
+					right:100px;
+					top: 0;
+
+				}
+						.pg-pedido .meus-pedios li .radio .botao-radio{
+							height: 25px;
+    						width: 25px;
+						}
+				.pg-pedido .meus-pedios p{
+					margin:0;
+				}
+					.pg-pedido .meus-pedios span{
+						font-weight:bold;
+					    color: #EF6700;
+					}
+				.pg-pedido .meus-pedios a{
+
+				}
+	/* ÁREA DE CONFIRMAÇÕES */
+	.pg-pedido .table{
+		text-align:center;
+		margin-bottom: 80px;
+		border-bottom: solid 1px #ccc;
+
+
+	}
+	.pg-pedido  .sub-titulo-fom{
+		text-align:left;
+		font-weight:bold;
+		color:#FF6D00;
+	    margin: 20px 0 0;
+	    text-transform:uppercase;
+	    font-size:17px;
+
+
+	}
+	.pg-pedido  .sub-titulo-fom i{
+		font-size:25px;
+
+
+	}
+		.pg-pedido .table tr{
+
+		}
+			.pg-pedido .table tr th{
+				text-align:center;
+				color:#EF6700;
+			}
+				.pg-pedido .table tr td{
+
+				}
+			.pg-pedido .enviar{
+				max-width: 230px;
+				text-align: center;
+				margin: 0 40px;
+			}
+					.pg-pedido #cancelar:hover{
+						background:red;
+					}
+					.pg-pedido #enviar:hover{
+						background:#00FFB8;
+					}
+					.pg-pedido .pedido-area{
+						overflow-x: scroll;
+					}
+		/* CONFIRMAÇÃO */
+		.pg-pedido .mensagem-confirmacao{
+			text-transform: uppercase;
+			font-size: 25px;
+			color: #3c763d;
+			text-align:center;
+			margin:50px 0;
+		}
+			.pg-pedido .mensagem-confirmacao p{
+
+			}
+			.pg-pedido .mensagem-confirmacao p i{
+				 font-size: 40px;
+
+			}
+				.pg-pedido .mensagem-erro {
+					text-transform: uppercase;
+					font-size: 25px;
+					color: red;
+					text-align:center;
+					margin:50px 0;
+				}
+					.pg-pedido .mensagem-erro p span{
+						-ms-transform: rotate(90deg);
+						-webkit-transform: rotate(90deg);
+						transform: rotate(90deg);
+						display: block;
+						font-size: 50px;
+						max-height: 40px;
+					}
+					.pg-pedido .mensagem-erro span{
+
+					}
+

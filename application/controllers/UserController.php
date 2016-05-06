@@ -36,7 +36,7 @@ class UserController extends CI_Controller {
 			'new_user' => $this->user
 			);
 
-		$this->template->load('users/new', $datas);
+		$this->template->load('login', 'users/new', $datas);
 	}
 
 	public function create_user () {
@@ -50,12 +50,12 @@ class UserController extends CI_Controller {
 
 		if (!$this->validate_post()) {
 			flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
-			return $this->template->load('users/new', $datas);
+			return $this->template->load('login', 'users/new', $datas);
 		}
 
 		if ($this->user->getPassword() !== $this->input->post("user[password_confirm]")) {
 			flash($this, 'flashError', 'Senha informada diferente de senha de confirmação!');
-			return $this->template->load('users/new', $datas);
+			return $this->template->load('login', 'users/new', $datas);
 		}
 
 		if($this->getUserModel()->findByEmail($this->user->getEmail())) {
@@ -66,8 +66,8 @@ class UserController extends CI_Controller {
 		if($this->getUserModel()->create($this->user)) {
 			$user = $this->getUserModel()->findByEmail($this->user->getEmail());
 			$this->senEmail($user);
-			flash($this, 'flashSuccess', 'Cadastro realizado com sucesso! Um email foi enviado para sua conta de email com o link de ativação desta conta.');
-			redirect('account/'.$user->getId());
+			flash($this, 'flashInfo', 'Cadastro realizado com sucesso! Um email foi enviado para sua conta de email com o link de ativação desta conta.');
+			redirect('login');
 		}
 	}
 
@@ -87,7 +87,7 @@ class UserController extends CI_Controller {
 				'user' => $user
 				);
 
-			$this->template->load('users/edit', $datas);
+			$this->template->load('dashboard', 'users/edit', $datas);
 			return true;
 		}
 
@@ -121,17 +121,17 @@ class UserController extends CI_Controller {
 
             if(!$this->validate_post_update()) {
             	flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
-            	return $this->template->load('users/edit', $datas);
+            	return $this->template->load('dashboard', 'users/edit', $datas);
             }
 
 
             if ($this->getUserModel()->update($this->user)) {
             	flash($this, 'flashSuccess', 'Dados atualizados com sucesso!');
-            	return $this->template->load('users/edit', $datas);
+            	return $this->template->load('dashboard', 'users/edit', $datas);
             }
 
             flash($this, 'flashError', 'Ocorreu um erro ao tentar atualizar seus dados!');
-            return $this->template->load('users/edit', $datas);
+            return $this->template->load('dashboard', 'users/edit', $datas);
           }
 
           public function get_user () {
@@ -144,7 +144,7 @@ class UserController extends CI_Controller {
             if (!$user) { //Se o usuário não for encontrado para atualização a ágina é redirecionada para o login
             	$datas = array('page_title' => $this->getTitle());
             	flash($this, 'flashError', 'Usuário inexistente!');
-            	return $this->template->load('users/index', $datas);
+            	return $this->template->load('dashboard', 'users/index', $datas);
             }
 
             $datas = array(
@@ -152,11 +152,30 @@ class UserController extends CI_Controller {
             	'user' => $user
             	);
 
-            return $this->template->load('users/index', $datas);
+            return $this->template->load('dashboard', 'users/index', $datas);
           }
 
-          public function findAll_users () {
+          public function find_user() {
+                    $this->form_validation->set_rules('email', 'Email', 'trim|required|max_length[50]',  array(
+                         'required'      => 'Por favor, informe seu %s.',
+                         'max_length'     => 'Seu email deve possuir no máximo 50 caracteres.'
+                    ));
 
+                    $user = $this->getUserModel();
+                    $user->setEmail($this->input->post("email"));
+                    $datas = array( 'new_user' => $user);
+
+                    if (!$this->form_validation->run()) {
+                           flash($this, 'flashError', 'Email inválido!');
+                           return redirect('login');
+                    }
+
+                    if ($this->getUserModel()->findByEmail($user->getEmail())) {
+                           flash($this, 'flashError', 'Email já cadastrado!');
+                           return redirect('login');
+                    }
+
+                    return $this->new_user($user);
           }
 
           public function getPost($user) {
@@ -171,33 +190,33 @@ class UserController extends CI_Controller {
           public function validate_post() {
 
           	$this->form_validation->set_rules('user[name]', 'Name', 'trim|required|max_length[50]',  array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu %s.',
+          		'max_length'     => 'Seu nome deve possuir no máximo 50 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[email]', 'Email', 'trim|required|max_length[30]',  array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu  %s.',
+          		'max_length'     => 'Seu %s deve possuir no máximo 30 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[password]', 'Password', 'trim|required|min_length[6]|max_length[20]', array(
-          		'required'      => 'Caralho! %s.',
-          		'min_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe sua %s.',
+          		'min_length'     => 'Sua %s deve possuir no mínimo 6 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[password_confirm]', 'Password Confirm', 'trim|required|min_length[6]', array(
-          		'required'      => 'Caralho! %s.',
-          		'min_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu sua %s.',
+          		'min_length'     => 'Sua %s deve possuir no mínimo 6 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[phone1]', 'Telefone 1', 'trim|required|max_length[30]', array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu %s.',
+          		'max_length'     => 'Este campo não deve possuir mais que 50 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[phone2]', 'Telefone 2', 'trim|required|max_length[30]', array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu %s.',
+          		'max_length'     => 'Este campo não deve possuir mais que 50 caracteres'
           		));
 
           	$this->form_validation->set_error_delimiters('<font size="3" color="red" class="error">', '</font><br>       ');
@@ -207,18 +226,18 @@ class UserController extends CI_Controller {
 
           public function validate_post_update () {
           	$this->form_validation->set_rules('user[name]', 'Name', 'trim|required|max_length[50]',  array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu %s.',
+          		'max_length'     => 'Este campo não deve possuir mais que 50 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[phone1]', 'Telefone 1', 'trim|required|max_length[30]', array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu %s.',
+          		'max_length'     => 'Este campo não deve possuir mais que 50 caracteres'
           		));
 
           	$this->form_validation->set_rules('user[phone2]', 'Telefone 2', 'trim|required|max_length[30]', array(
-          		'required'      => 'Caralho! %s.',
-          		'max_length'     => 'Cacete! %s'
+          		'required'      => 'Por favor, informe seu seu %s.',
+          		'max_length'     => 'Este campo não deve possuir mais que 50 caracteres'
           		));
           	return $this->form_validation->run();
           }

@@ -23,7 +23,7 @@ class LoginController extends CI_Controller {
 	}
 
 	public function sign_in() {
-
+              //clear_flashes($this);
 		$datas = array();
 		$datas['logout_url'] = $this->facebook->get_logout_url();
 
@@ -31,7 +31,7 @@ class LoginController extends CI_Controller {
                    		return redirect('dashboard');
                 	}
 
-             	print_r($this-> session->all_userdata());
+             	      //print_r($this-> session->all_userdata());
 
                 	$user = $this->getUserModel();
 
@@ -39,7 +39,7 @@ class LoginController extends CI_Controller {
                 	$datas['page_title']  = $this->getTitle();
                 	$datas['user'] = $user;
 
-                	$this->template->load('login/sign_in', $datas);
+                	$this->template->load('login', '/login/sign_in', $datas);
           }
 
           public function sign_in_facebook() {
@@ -96,7 +96,7 @@ class LoginController extends CI_Controller {
 
 	          if (!$this->validate_post()) {
 	                 flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
-	                 return   $this->template->load('login/sign_in', $datas);
+	                 return   $this->template->load('login', 'login/sign_in', $datas);
 	          }
 
 	          $user_found = $this->getUserModel()->findByEmail($user->getEmail());
@@ -108,7 +108,7 @@ class LoginController extends CI_Controller {
 	          }
 
 	          flash($this, 'flashError', 'Login/Senha incorreto(a) ou Conta inativada!');
-	          return $this->template->load('login/sign_in', $datas);
+	          return $this->template->load('login', 'login/sign_in', $datas);
          }
 
          private function comparePasswords($password, $correct_password) {

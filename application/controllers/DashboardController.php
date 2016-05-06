@@ -8,6 +8,7 @@ class DashboardController extends CI_Controller {
             parent::__construct();
             $this->setTitle('Dashboard');
             $this->load->model('user_model', 'userInstance');
+            $this->load->model('item_model', 'item');
       }
 
       public function index() {
@@ -15,12 +16,16 @@ class DashboardController extends CI_Controller {
 
             $datas = array(
                         'page_title' => $this->getTitle(),
-                        'facebook_logout_url' => $this->facebook->get_logout_url()
+                        'facebook_logout_url' => $this->facebook->get_logout_url(),
+                        'itens' => $this->item->findAll()
             );
 
+            //print_r($this->session->all_userdata());
+            $this->template->load('dashboard',  'dashboard/index', $datas);
+      }
 
-            print_r($this->session->all_userdata());
-            $this->template->load('dashboard/index', $datas);
+      public function getItems()  {
+
       }
 
       private function getUserModel() {

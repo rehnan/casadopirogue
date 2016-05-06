@@ -1,32 +1,39 @@
 <?php
 
-function form_sign_in($action_url, $params = '', $user) {
-	echo form_open($action_url, $params);
+function form_sign_in($action_url, $login_url = '', $user) {
+	echo form_open($action_url);
 
-	echo form_label("E-mail ", "email");
-	echo form_input(array(
-		"name" =>
-		"user[email]",
-		"id" => "email",
-		"class" => "form-control",
-		"value" => $user->getEmail()
-	));
-	echo "<p></p>";
+	echo '<div class="form-group">';
+		echo form_label("E-mail ", "email", array("class"=>"hidden"));
+		echo form_input(array(
+			"name" =>
+			"user[email]",
+			"id" => "email",
+			"class" => "form-control",
+			"value" => $user->getEmail(),
+			"placeholder" => "E-mail"
+		));
+	echo '</div>';
 
-	echo form_label("Senha ", "senha");
-	echo form_password(array(
-		"name" => "user[password]",
-		"id" => "password",
-		"class" => "form-control",
-		"value" => $user->getPassword()
-	));
-	echo "<p></p>";
+	echo '<div class="form-group">';
+		echo form_label("Senha ", "senha", array("class"=>"hidden"));
+		echo form_password(array(
+			"name" => "user[password]",
+			"id" => "password",
+			"class" => "form-control",
+			"value" => $user->getPassword(),
+			"placeholder" => "Senha"
+		));
+	echo '</div>';
 
-	echo form_button(array(
-		"class" => "btn btn-primary",
-		"content" => "Login",
-		"type" => "submit"
-	));
+	echo '<div class="form-group">';
+		echo form_button(array(
+			"class" => "entrar",
+			"type" => "submit",
+			"content" => "Entrar"
+		));
+	echo "<a href='$login_url' class='face'><i class='fa fa-facebook' title='Login Facebook' aria-hidden='true'></i>Entrar com facebook</a>" ;
+	echo '</div>';
 
 	echo form_close();
 }

@@ -62,6 +62,8 @@ $route['account/([1-9]+)/edit']['POST'] = 'UserController/update_user';
 
 $route['account/([1-9]+)']['GET'] = 'UserController/get_user';
 
+$route['account/new']['POST'] = 'UserController/find_user';
+
 $route['account/active_account/(:any)']['GET'] = 'UserController/active_account';
 
 $route['login']['GET'] = 'LoginController/sign_in';
@@ -73,6 +75,11 @@ $route['login/facebook']['GET'] = 'LoginController/sign_in_facebook';
 $route['logout/facebook']['GET'] = 'LoginController/sign_out ';
 
 $route['dashboard']['GET'] = 'DashboardController/index';
+
+$route['order']['GET'] = 'OrderController/new_order';
+$route['order/create']['GET'] = 'OrderController/create_order';
+$route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
+$route['order/([1-9]+)/itens']['POST'] = 'OrderController/add_item';
 
 
 $route['404_override'] = '';
