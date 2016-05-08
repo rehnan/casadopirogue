@@ -32,10 +32,10 @@
                            <span title="Fernando" >Nome do Usuário Logado</span>
                            <p><?= anchor('logout', 'Deslogar', 'title="Sair" class="sair"') ?> <span><i class="fa fa-sign-out" aria-hidden="true"></i> </span></p>
                         </div>
-                        <a href="order" class="menu">Novo Pedido</a>
+                        <a href="<?= base_url('order') ?>" class="menu">Novo Pedido</a>
                          <a href="" class="menu">Meus dados cadastrais</a>
                         <a href="" class="menu">Meus pedidos</a>
-                        <a href="" class="menu">Meu endereço</a>
+                        <a href="<?= base_url('address') ?>" class="menu">Meu endereço</a>
                      </div>
                   </div>
                   <div class="col-md-9">

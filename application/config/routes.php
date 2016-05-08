@@ -77,9 +77,17 @@ $route['logout/facebook']['GET'] = 'LoginController/sign_out ';
 $route['dashboard']['GET'] = 'DashboardController/index';
 
 $route['order']['GET'] = 'OrderController/new_order';
-$route['order/create']['GET'] = 'OrderController/create_order';
+$route['order/create']['POST'] = 'OrderController/create_order';
+$route['order/(:any)/cancel']['GET'] = 'OrderController/delete_order';
 $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
-$route['order/([1-9]+)/itens']['POST'] = 'OrderController/add_item';
+
+$route['itens']['POST'] = 'OrderController/add_item';
+
+$route['address']['GET'] = 'AddressController/index';
+$route['address/new']['POST'] = 'AddressController/create_address';
+$route['address/new']['GET'] = 'AddressController/new_address';
+$route['address/([0-9]+)/delete']['GET'] = 'AddressController/delete_address';
+
 
 
 $route['404_override'] = '';

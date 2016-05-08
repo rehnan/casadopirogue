@@ -6,5 +6,4 @@
      <br>
      <?php echo validation_errors(); ?>
   </article>
-</div>
 </section>

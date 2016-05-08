@@ -37,19 +37,19 @@ class Item_model extends CI_Model {
 		return $itens;
 	}
 
-	 public function count_itens ($order_id, $user_id) {
+	 public function get_itens ($order_id) {
    		$where =  array('order_id' => $order_id);
-		$this->db->select('COUNT(*) As count');
+		$this->db->select('*');
 		$this->db->from('item_order');
 		$this->db->where($where);
 
 		$query = $this->db->get();
 
 		 if ($query->num_rows() > 0) {
-		 	$count = $query->custom_result_object('item_model');
-		 	return $count[0]->count;
+		 	$itens = $query->custom_result_object('item_model');
+		 	return $itens;
 		 }
-		 return false;
+		 return array();
    }
 
 

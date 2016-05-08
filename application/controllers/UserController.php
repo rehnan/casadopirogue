@@ -107,7 +107,6 @@ class UserController extends CI_Controller {
             	return redirect('account');
             }
 
-
             	$this->user = (is_null($user)) ? $this->getUserModel() : $user;
             	$this->user->setName($this->input->post("user[name]"));
           	$this->user->setPhone1($this->input->post("user[phone1]"));
