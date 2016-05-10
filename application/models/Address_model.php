@@ -44,6 +44,24 @@ class Address_model extends CI_Model {
    		}
 	}
 
+	public function check_main ($user_id, $address_id) {
+   			$where = array (
+   				'id' 	      => $address_id,
+   				'user_id' => $user_id,
+   			);
+
+   			$this->db->update('address',  array('main' => FALSE ));
+
+   			$data = array('main' => TRUE );
+
+			$this->db->where($where);
+
+   			if ($this->db->update('address', $data)) {
+   				return true ;
+   			}
+   			return false;
+	}
+
 	public function get_all ($user_id) {
 		$where =  array('user_id' => $user_id);
    		$this->db->select('*');

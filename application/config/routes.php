@@ -81,12 +81,17 @@ $route['order/create']['POST'] = 'OrderController/create_order';
 $route['order/(:any)/cancel']['GET'] = 'OrderController/delete_order';
 $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
 
+$route['order/delivery-policy']['GET'] = 'OrderController/set_delivery_policy';
+
 $route['itens']['POST'] = 'OrderController/add_item';
 
 $route['address']['GET'] = 'AddressController/index';
 $route['address/new']['POST'] = 'AddressController/create_address';
 $route['address/new']['GET'] = 'AddressController/new_address';
 $route['address/([0-9]+)/delete']['GET'] = 'AddressController/delete_address';
+$route['address/([0-9]+)/main']['GET'] = 'AddressController/check_main_address';
+
+
 
 
 

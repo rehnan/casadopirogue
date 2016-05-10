@@ -72,7 +72,18 @@ class AddressController extends CI_Controller {
 			flash($this, 'flashSuccess', 'Endereço '.$address_name->address_name.' adicionado com sucesso!');
 			redirect('address');
 		}
+	}
 
+	public function check_main_address () {
+		$this->beforeAction();
+
+		if ($this->address->check_main($this->get_current_user()['id'], $this->uri->segment(2))) {
+			flash($this, 'flashSuccess', 'Novo endereço marcado como principal');
+			return redirect('address');
+		}
+
+		flash($this, 'flashSuccess', 'Este endereço não pôde ser marcado como principal.');
+		return redirect('address');
 	}
 
 	public function delete_address () {
@@ -83,8 +94,8 @@ class AddressController extends CI_Controller {
 			return redirect('address');
 		}
 
-		flash($this, 'flashError', 'Pedido cancelado com sucesso!');
-		return redirect('dashboard');
+		flash($this, 'flashError', 'Este endereço não pode ser excluído!');
+		return redirect('address');
 	}
 
 	private function getTitle() {

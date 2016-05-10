@@ -84,6 +84,10 @@ class OrderController extends CI_Controller {
 		return $this->template->load('dashboard',  'order/new', $datas);
 	}
 
+	public function set_delivery_policy() {
+
+	}
+
 	public function get_itens () {
 		$this->beforeAction();
 		$category = $this->uri->segment(3);

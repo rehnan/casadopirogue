@@ -11,6 +11,7 @@ class Order_model extends CI_Model {
    	public $item_amount;
    	public $created_at;
    	public $updated_at;
+          public $delivery;
 
    	public function __construct() {
    		parent::__construct();
