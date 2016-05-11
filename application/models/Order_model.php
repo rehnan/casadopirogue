@@ -15,6 +15,7 @@ class Order_model extends CI_Model {
 
    	public function __construct() {
    		parent::__construct();
+                    $this->load->model('address_model', 'address');
    		$this->load->model('item_model', 'item');
    		$this->load->model('item_order_model', 'item_order');
    	}
@@ -73,10 +74,11 @@ class Order_model extends CI_Model {
 		 // Retorno número de linhas $query->num_rows();
    		$order = $query->custom_result_object('order_model');
    		$order[0]->itens = $this->get_itens_order($order_id);
+                    $order[0]->address_id = $this->address->get_delivery_address($user_id);
    		return $order[0];
    	}
 
-   	public function check_by_order_open ($user_id) {
+         	public function check_by_order_open ($user_id) {
    		$where =  array('status' => 'Aberto', 'user_id' => $user_id);
    		$this->db->select('id');
    		$this->db->from('order');

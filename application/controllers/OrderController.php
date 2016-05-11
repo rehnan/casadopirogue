@@ -31,7 +31,7 @@ class OrderController extends CI_Controller {
 			'facebook_logout_url' => $this->facebook->get_logout_url(),
 			'order' => $order,
 			'item' =>  $this->order->getItemModel()
-			);
+		);
 
 		return $this->template->load('dashboard',  'order/new', $datas);
 	}
@@ -66,7 +66,7 @@ class OrderController extends CI_Controller {
 			'facebook_logout_url' => $this->facebook->get_logout_url(),
 			'order' => $order,
 			'item' =>  $item
-			);
+		);
 
 		if (!$this->validate_post_item()) {
 			flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
@@ -82,10 +82,6 @@ class OrderController extends CI_Controller {
 
 		flash($this, 'flashError', 'Houve um erro ao tentar adiciona o item!');
 		return $this->template->load('dashboard',  'order/new', $datas);
-	}
-
-	public function set_delivery_policy() {
-
 	}
 
 	public function get_itens () {

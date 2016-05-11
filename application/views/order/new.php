@@ -58,25 +58,33 @@
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="entrega" value="Entrega" <?= ($order->delivery === 'Entrega') ? 'checked' : '' ?>>
-					Solicitar entrega do pedido no endereço desejado?
+					Solicitar entrega do pedido em meu endereço principal ?
 				</label>
-				<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" href="#collapse1">Endereço 1 <i class="fa fa-truck" aria-hidden="true"></i></a>
-								</h4>
-							</div>
-							<div id="collapse1" class="panel-collapse collapse">
-								<div class="panel-body">
-
-								</div>
-							</div>
+				<?php if ($order->address_id) { ?>
+				<div class="panel panel-default" id="address_main">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapse1"> <?php print_r($order->address_id->address_name)  ?> <i class="fa fa-truck" aria-hidden="true"></i>
+								<div  class="pull-right" > Distância:<span id="distancia"></span>. Preço Frete:<span id="frete"></span> </div>
+							</a>
+						</h4>
+					</div>
+					<div id="collapse1" class="panel-collapse collapse">
+						<div class="panel-body">
+							<p><span id="rua"><?= $order->address_id->street.', '.$order->address_id->number ?></span> <?= $order->address_id->complement ?> </p>
+							<p>Bairro: <span id="bairro"><?= $order->address_id->neighborhood  ?></span></p>
+							<p>Cidade: <span id="cidade"><?= $order->address_id->city  ?></span></p>
+							<p>CEP: <span id="cep"><?= $order->address_id->zip_code  ?></span></p>
+							<p>Estado: <span id="estado"><?= $order->address_id->uf  ?></span></p>
+							<p><a href="address" name="trocar-endereco"> Mudar Endereço Principal </a></p>
 						</div>
-				<!-- <?php foreach ($address  as $key => $adrs) { ?>
-					<? if ($adrs->main)  { ?> -->
-
-					<!-- <? } ?>
-				<?php } ?> -->
+					</div>
+				</div>
+				<?php } else { ?>
+				<div class="alert alert-warning">
+					Você deve configurar um de seus endereços cadastrados como principal.<strong> <a title="Endereços" href="address" >Clique aqui para configurá-los</a></strong>
+				</div>
+				<?php } ?>
 			</div>
 		</form>
 	</section>

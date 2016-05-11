@@ -69,7 +69,7 @@ class AddressController extends CI_Controller {
 		$address->user_id = $this->get_current_user()['id'];
 
 		if ($this->address->create($address)) {
-			flash($this, 'flashSuccess', 'Endereço '.$address_name->address_name.' adicionado com sucesso!');
+			flash($this, 'flashSuccess', 'Endereço '.$address->address_name.' adicionado com sucesso!');
 			redirect('address');
 		}
 	}

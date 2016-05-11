@@ -62,6 +62,24 @@ class Address_model extends CI_Model {
    			return false;
 	}
 
+	public function get_delivery_address($user_id) {
+			$where = array (
+   				'user_id' => $user_id,
+   				'main' => TRUE
+   			);
+
+   			$this->db->select('*');
+   			$this->db->from('address');
+   			$this->db->where($where);
+
+   			$query = $this->db->get();
+
+   			if ($query->num_rows() > 0) {
+   				return $query->custom_result_object('address_model')[0];
+   			}
+   			return null;
+	}
+
 	public function get_all ($user_id) {
 		$where =  array('user_id' => $user_id);
    		$this->db->select('*');

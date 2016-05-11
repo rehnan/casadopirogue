@@ -5,6 +5,7 @@
    </div>
 </div>
 <footer>Footer Dashboard</footer>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGlXHsXhyU5qL9BfeUuh9VcsC8V6hgzxw"  type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/jquery-1.12.3.min.js") ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.min.js") ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/owl.carousel.min.js") ?>"></script>
@@ -13,7 +14,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/order.js") ?>"></script>
 
 
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGlXHsXhyU5qL9BfeUuh9VcsC8V6hgzxw"  type="text/javascript"></script>
+
 <script type="text/javascript">
 
         $("#example-basic").steps({
@@ -41,7 +42,7 @@
                  //https://developers.google.com/maps/documentation/javascript/examples/distance-matrix
             //https://developers.google.com/maps/documentation/javascript/directions#Waypoints
 
-            var directionsService = new google.maps.DirectionsService();
+           /* var directionsService = new google.maps.DirectionsService();
             var request = {
                 origin:'Rua Prof. Rodolfo Belz, 369 - Santa Cândida Curitiba - PR ',
                 destination: $("#endereco").val(),
@@ -56,7 +57,7 @@
                     console.log(route.legs[0].distance.text);
                 } else
                     $("#km").text('Endereço não encontrado!');
-            });
+            });*/
         });
 
 </script>
