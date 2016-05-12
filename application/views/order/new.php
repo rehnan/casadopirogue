@@ -1,7 +1,7 @@
 <div class="page-header ">
 	<a class="btn btn-default"  href="order" role="button">Novo Pedido</a>
 	<button class="btn btn-primary   pull-right" type="button">
-		Carrinho <span class="badge" ><?=  count($order->itens) ?></span>
+		<i class="fa fa-shopping-cart" title="View 3 items in your shopping cart" aria-hidden="true"></i> Carrinho <span class="badge" ><?=  count($order->itens) ?></span>
 	</button>
 
 </div>
@@ -44,27 +44,27 @@
 		</form>
 	</section>
 
-	<h3>Política de Entrega</h3>
+	<h3>Modo de Entrega</h3>
 	<section>
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/delivery-policy">
 
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="retirada" value="Retirada" <?= ($order->delivery === 'Retirada') ? 'checked' : '' ?> >
-					Retirar o pedido em nosso estabelecimento?
+					Retirar o pedido no estabelecimento.
 				</label>
 			</div>
 			Ou <br>
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="entrega" value="Entrega" <?= ($order->delivery === 'Entrega') ? 'checked' : '' ?>>
-					Solicitar entrega do pedido em meu endereço principal ?
+					Solicitar entrega do pedido em meu endereço principal.
 				</label>
 				<?php if ($order->address_id) { ?>
 				<div class="panel panel-default" id="address_main">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#collapse1"> <?php print_r($order->address_id->address_name)  ?> <i class="fa fa-truck" aria-hidden="true"></i>
+							<a data-toggle="collapse" href="#collapse1"><span id="address_id"><?= $order->address_id->id ?></span> | <?= $order->address_id->address_name  ?> <i class="fa fa-truck" aria-hidden="true"></i>
 								<div  class="pull-right" > Distância:<span id="distancia"></span>. Preço Frete:<span id="frete"></span> </div>
 							</a>
 						</h4>
@@ -82,7 +82,7 @@
 				</div>
 				<?php } else { ?>
 				<div class="alert alert-warning">
-					Você deve configurar um de seus endereços cadastrados como principal.<strong> <a title="Endereços" href="address" >Clique aqui para configurá-los</a></strong>
+					Você não possui nenhum endereço principal configurado.<strong> <a title="Endereços" href="address" >Clique aqui para cadastrá-los e configurá-los.</a></strong>
 				</div>
 				<?php } ?>
 			</div>
@@ -90,7 +90,32 @@
 	</section>
 	<h3>Confirmação do Pedido</h3>
 	<section>
-		<p>Fechar Pedido</p>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Categoria</th>
+					<th>Quantidade</th>
+					<th>Preço</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php $total = 0 ?>
+			<?php foreach ($order->itens as $item) {?>
+			<?php $total = $total + $item->package_price ?>
+				<tr>
+					<td><?= $item->name ?></td>
+					<td><?= $item->category ?></td>
+					<td> 1 </td>
+					<td>R$ <?= number_format($item->package_price, 2, ',', ' ');  ?></td>
+				</tr>
+			<?php } ?>
+				<td><b>Total</b></td>
+				<td></td>
+				<td></td>
+				<td><b>R$ <?= number_format($total, 2, ',', ' '); ?></b></td>
+			</tbody>
+		</table>
 	</section>
 </div>
 

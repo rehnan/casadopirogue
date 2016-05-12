@@ -44,7 +44,7 @@ class LoginController extends CI_Controller {
 
           public function sign_in_facebook() {
 
-          	$user['user_token_facebook']  = ($this->session->all_userdata()['fb_token']) ? $this->session->all_userdata()['fb_token'] : null;
+          	$user['user_token_facebook']  = (isset($this->session->all_userdata()['fb_token'])) ? $this->session->all_userdata()['fb_token'] : null;
           	$user['id'] =  $this->facebook->get_user()['id'];
           	$user['name'] =  $this->facebook->get_user()['name'];
           	$user['email'] =  $this->facebook->get_user_email();

@@ -11,11 +11,11 @@ class Order_model extends CI_Model {
    	public $item_amount;
    	public $created_at;
    	public $updated_at;
-          public $delivery;
+   	public $delivery;
 
    	public function __construct() {
    		parent::__construct();
-                    $this->load->model('address_model', 'address');
+   		$this->load->model('address_model', 'address');
    		$this->load->model('item_model', 'item');
    		$this->load->model('item_order_model', 'item_order');
    	}
@@ -26,7 +26,7 @@ class Order_model extends CI_Model {
    			$data = array (
    				'user_id' => $user_id,
    				'status'  => 'Aberto'
-   			);
+   				);
 
    			if ($this->db->insert('order', $data)) {
    				$order_id = $this->db->insert_id();
@@ -50,7 +50,7 @@ class Order_model extends CI_Model {
    				'id' 	      => $order_id,
    				'user_id' => $user_id,
    				'status'   => 'Aberto'
-   			);
+   				);
 
    			if ($this->db->delete('order', $data)) {
    				return true ;
@@ -74,11 +74,11 @@ class Order_model extends CI_Model {
 		 // Retorno número de linhas $query->num_rows();
    		$order = $query->custom_result_object('order_model');
    		$order[0]->itens = $this->get_itens_order($order_id);
-                    $order[0]->address_id = $this->address->get_delivery_address($user_id);
+   		$order[0]->address_id = $this->address->get_delivery_address($user_id);
    		return $order[0];
    	}
 
-         	public function check_by_order_open ($user_id) {
+   	public function check_by_order_open ($user_id) {
    		$where =  array('status' => 'Aberto', 'user_id' => $user_id);
    		$this->db->select('id');
    		$this->db->from('order');
@@ -104,6 +104,15 @@ class Order_model extends CI_Model {
 
    	public function getItemModel () {
    		return $this->item_order;
+   	}
+
+   	public function set_delivery_mode ($user_id, $order_id, $mode) {
+   		$where =  array('id' => $order_id, 'Status' => 'Aberto', 'user_id' => $user_id, );
+   		$this->db->set('delivery', $mode);
+   		$this->db->where($where);
+   		if ($this->db->update('order'))
+   			return true;
+   		return false;
    	}
    }
 

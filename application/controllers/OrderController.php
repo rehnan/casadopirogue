@@ -136,7 +136,16 @@ class OrderController extends CI_Controller {
 		$new_item->category = ($this->input->post("item[categoria]") === '[Selecione um Produto]') ? null : $this->input->post("item[categoria]");
 		$new_item->amount = $this->input->post("item[quantidade]");
 		$new_item->description = $this->input->post("item[observacao]");
+		$new_item->package_price = ($this->input->post("item[sabor]")) ? explode("|", $this->input->post("item[sabor]"))[2] : 0;
 		return $new_item;
+	}
+
+	public function set_delivery_mode(){
+
+		$this->beforeAction();
+		$order_id =$category = $this->uri->segment(2);
+		$mode = $category = $this->uri->segment(4);
+		$this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $mode);
 	}
 
 

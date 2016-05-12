@@ -81,7 +81,7 @@ $route['order/create']['POST'] = 'OrderController/create_order';
 $route['order/(:any)/cancel']['GET'] = 'OrderController/delete_order';
 $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
 
-$route['order/delivery-policy']['GET'] = 'OrderController/set_delivery_policy';
+$route['order/([0-9]+)/delivery-mode/(:any)']['GET'] = 'OrderController/set_delivery_mode';
 
 $route['itens']['POST'] = 'OrderController/add_item';
 
@@ -90,10 +90,6 @@ $route['address/new']['POST'] = 'AddressController/create_address';
 $route['address/new']['GET'] = 'AddressController/new_address';
 $route['address/([0-9]+)/delete']['GET'] = 'AddressController/delete_address';
 $route['address/([0-9]+)/main']['GET'] = 'AddressController/check_main_address';
-
-
-
-
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
