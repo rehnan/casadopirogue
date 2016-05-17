@@ -143,9 +143,18 @@ class OrderController extends CI_Controller {
 	public function set_delivery_mode(){
 
 		$this->beforeAction();
-		$order_id =$category = $this->uri->segment(2);
-		$mode = $category = $this->uri->segment(4);
-		$this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $mode);
+
+		$order_id = $this->input->post("order_id");
+		$datas = array (
+			'address_id' => ($this->input->post("address_id") === '') ? NULL : $this->input->post("address_id"),
+			'freight' => $this->input->post("freight"),
+			'delivery' =>  $this->input->post("mode"),
+			'distance' => ($this->input->post("distance") === '') ? 0 : $this->input->post("distance")
+		);
+
+		print_r($datas);
+
+		return ($this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
 	}
 
 

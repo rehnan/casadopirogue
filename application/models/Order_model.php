@@ -106,11 +106,10 @@ class Order_model extends CI_Model {
    		return $this->item_order;
    	}
 
-   	public function set_delivery_mode ($user_id, $order_id, $mode) {
+   	public function set_delivery_mode ($user_id, $order_id, $datas) {
    		$where =  array('id' => $order_id, 'Status' => 'Aberto', 'user_id' => $user_id, );
-   		$this->db->set('delivery', $mode);
    		$this->db->where($where);
-   		if ($this->db->update('order'))
+   		if ($this->db->update('order', $datas))
    			return true;
    		return false;
    	}

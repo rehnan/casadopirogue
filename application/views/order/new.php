@@ -60,12 +60,13 @@
 					<input type="radio" name="opcaoDelivery" id="entrega" value="Entrega" <?= ($order->delivery === 'Entrega') ? 'checked' : '' ?>>
 					Solicitar entrega do pedido em meu endereço principal.
 				</label>
+			</div>
 				<?php if ($order->address_id) { ?>
 				<div class="panel panel-default" id="address_main">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" href="#collapse1"><span id="address_id"><?= $order->address_id->id ?></span> | <?= $order->address_id->address_name  ?> <i class="fa fa-truck" aria-hidden="true"></i>
-								<div  class="pull-right" > Distância:<span id="distancia"></span>. Preço Frete:<span id="frete"></span> </div>
+								<div  class="pull-right" > Distância:<span id="distancia"><?=  $order->distance ?>Km</span>. Preço Frete:<span id="frete"><?=  number_format($order->freight,2,",",".")  ?></span> </div>
 							</a>
 						</h4>
 					</div>
@@ -85,7 +86,6 @@
 					Você não possui nenhum endereço principal configurado.<strong> <a title="Endereços" href="address" >Clique aqui para cadastrá-los e configurá-los.</a></strong>
 				</div>
 				<?php } ?>
-			</div>
 		</form>
 	</section>
 	<h3>Confirmação do Pedido</h3>
@@ -106,14 +106,18 @@
 				<tr>
 					<td><?= $item->name ?></td>
 					<td><?= $item->category ?></td>
-					<td> 1 </td>
+					<td><?= $item->amount ?></td>
 					<td>R$ <?= number_format($item->package_price, 2, ',', ' ');  ?></td>
 				</tr>
 			<?php } ?>
+				<tr>
+					<td colspan="3"><b>Frete</b></td>
+					<td>R$ <?=  number_format($order->freight,2,",",".") ?></td>
+				</tr>
 				<td><b>Total</b></td>
 				<td></td>
 				<td></td>
-				<td><b>R$ <?= number_format($total, 2, ',', ' '); ?></b></td>
+				<td><b>R$ <?= number_format($total+$order->freight, 2, ',', '.'); ?></b></td>
 			</tbody>
 		</table>
 	</section>

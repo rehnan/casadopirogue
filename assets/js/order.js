@@ -1,17 +1,16 @@
 $(document).ready(function (){
 
-	$("#address_main").hide();
+	$("#entrega").attr("checked") ? $("#address_main").show() : $("#address_main").hide();
 
 	if ($( "#selecao-item" ).length > 0) {
 		if ($('#selecao-item').val() != '[Selecione um Produto]') { get_itens(); }
 	}
 
-	$("input[name='opcaoDelivery']").click(function(){
-		var order_id = $('#order_id').text();
-		var address_id = 0;
-		var freight = 0;
-		if ($(this).val() === 'Entrega') {
 
+	$("input[name='opcaoDelivery']").on( "click", function(){
+		var order_id = $('#order_id').text();
+		if ($(this).val() == 'Entrega') {
+			var mode = $(this).val();
 
 			var destino = $("#rua").text()+' - '+$("#bairro").text()+' '+$("#cidade").text()+'/'+$("#estado").text()+' - '+$("#cep").text();
 			var origem = 'Rua Prof. Rodolfo Belz, 369 - Santa Cândida Curitiba - PR';
@@ -21,31 +20,34 @@ $(document).ready(function (){
 				destination: destino,
 				travelMode: google.maps.TravelMode.DRIVING
 			};
-
+			$("#address_main").show();
 			directionsService.route(request, function(response, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 					console.log(response);
 					var route = response.routes[0];
 					var distancia = route.legs[0].distance.text;
-					var result = parseFloat(distancia.split(" ")[0]) ;
-					result = result * 0.29;
+					var distance = parseFloat(distancia.split(" ")[0]) ;
+					var result = distance * 0.29;
 					//var r = result.toFixed(2)
 					$("#distancia").text(distancia);
 					var frete = result.toFixed(2);
 					$("#frete").text('R$ '+frete.replace('.', ','));
 
-					address_id = $('#address_id').text();
-					freight = $('#frete').text();
-					save_delivery_mode(order_id, $(this).val());
+					var address = Number($('#address_id').text());
+					var freight = frete.replace(',', '.');
+
+					return save_delivery_mode(order_id, mode, address, freight, distance);
 				} else {
-					$("#distancia").text('Endereço não encontrado.');
-					$("#frete").text('Frete não pode ser calculado.');
+					$("#distancia").text('Endereço não encontrado. Verifique se seu endereço está correto.');
+					return $("#frete").text('Não Calculado.');
 				}
 			});
-			return $("#address_main").show();
+
+		} else {
+			$("#address_main").hide();
+			return save_delivery_mode(order_id, $(this).val(), null, 0.00, 0);
+
 		}
-		save_delivery_mode(order_id, $(this).val());
-		return $("#address_main").hide();
 	});
 
 	$('#selecao-item').change(function(){
@@ -56,7 +58,6 @@ $(document).ready(function (){
 		}
 
 		get_itens();
-
 	});
 
 	function get_itens() {
@@ -82,18 +83,19 @@ $(document).ready(function (){
 		});
 	}
 
-	function save_delivery_mode($order_id, $mode) {
+	function save_delivery_mode(order_id, mode, address, freight, distance) {
 
-		var url = 'order/'+$order_id+'/delivery-mode/'+$mode;
-		alert(url);
+		var url = 'order/delivery-mode';
+		//alert('Order id: '+order_id+' Mode: '+mode+' Address: '+address+' Freight: '+freight);
 		$.ajax({
-			type: 'GET',
+			type: 'POST',
 			url: url,
+			data: {'order_id' : order_id, 'mode' : mode, 'address_id' : address, 'freight' : freight, 'distance': distance},
 			success: function(data, status) {
 				console.log(data);
 			},
 			error: function(data, status) {
-				alert('Erro ao tentar carregar os sabores detsa categoria!!');
+				alert('Erro ao tentar salvar o modo delivery');
 			},
 		});
 

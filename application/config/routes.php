@@ -81,7 +81,7 @@ $route['order/create']['POST'] = 'OrderController/create_order';
 $route['order/(:any)/cancel']['GET'] = 'OrderController/delete_order';
 $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
 
-$route['order/([0-9]+)/delivery-mode/(:any)']['GET'] = 'OrderController/set_delivery_mode';
+$route['order/delivery-mode']['POST'] = 'OrderController/set_delivery_mode';
 
 $route['itens']['POST'] = 'OrderController/add_item';
 
