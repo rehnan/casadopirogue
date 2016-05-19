@@ -101,6 +101,66 @@ $(document).ready(function (){
 
 	}
 
+	$('a[href$="#next"]').click(function(event) {
+		if($('#table-total').is(':visible')) {
+
+			var order_id = $('#order_id').text();
+			var url = 'order/'+order_id+'/total';
+
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				contentType: "application/json; charset=utf-8",
+				url: url,
+				success: function(order, status) {
+					//console.log(order);
+					$("#tbody-total").empty();
+					var item_line = '';
+					$.each(order.itens, function(index, item){
+						//console.log(item.name);
+						item_line = '<tr>'
+										+ '<td>'       + item.name +'</td>'
+										+ '<td>'       + item.category  +'</td>'
+										+ '<td>R$ '  +Number(item.package_price).toFixed(2).replace('.',',') +'</td>'
+										+ '<td>'        +item.amount +'</td>'
+										+ '<td>R$ '  +Number(item.package_price * item.amount).toFixed(2).replace('.',',')  +'</td>'
+									  + '</tr>';
+						$("#tbody-total").append(item_line);
+					});
+
+					var freight = Number(order.freight)
+					var total = Number(order.total)+Number(order.freight);
+
+					$('#total-frete').text('R$ '+freight.toFixed(2).replace('.',','));
+					$('#total-pedido').text('R$ '+total.toFixed(2).replace('.',','));
+				},
+				error: function(data, status) {
+					alert('Erro carregar o total do pedido');
+				},
+			});
+		}
+	});
+
+	$('a[href$="#finish"]').click(function(event) {
+		if($('#table-total').is(':visible')) {
+
+			var order_id = $('#order_id').text();
+			var url = 'order/'+order_id+'/finish';
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				contentType: "application/json; charset=utf-8",
+				url: url,
+				success: function(data, status) {
+					console.log(data);
+				},
+				error: function(data, status) {
+					alert('Erro ao tentar finalizar o pedido');
+				},
+			});
+		}
+	});
+
 
 
 /*$("#add-item").click(function(event) {
