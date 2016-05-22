@@ -55,14 +55,7 @@ class Item_model extends CI_Model {
 		 	return $itens;
 		 }
 		 return array();
-   }
-
-
-
-
-
-
-
+  	 }
 
 
 }

@@ -83,6 +83,15 @@ $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
 
 $route['order/delivery-mode']['POST'] = 'OrderController/set_delivery_mode';
 
+$route['order/([0-9]+)/total']['GET'] = 'OrderController/get_order_total';
+$route['order/([0-9]+)/finish']['GET'] = 'OrderController/finish_order';
+$route['order/([0-9]+)/update']['POST'] = 'OrderController/update_order';
+
+$route['order/my-orders']['GET'] = 'OrderController/get_my_orders';
+
+
+
+
 $route['itens']['POST'] = 'OrderController/add_item';
 
 $route['address']['GET'] = 'AddressController/index';

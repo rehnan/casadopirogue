@@ -44,6 +44,7 @@ class OrderController extends CI_Controller {
 	public function delete_order() {
 
 		$this->beforeAction();
+		$this->load->helper('url');
 
 		if ($this->order->delete($this->get_current_user()['id'], $this->uri->segment(2))) {
 			flash($this, 'flashSuccess', 'Pedido cancelado com sucesso!');
@@ -52,6 +53,15 @@ class OrderController extends CI_Controller {
 
 		flash($this, 'flashError', 'Pedido cancelado com sucesso!');
 		return redirect('dashboard');
+	}
+
+	public function update_order () {
+		$this->beforeAction();
+
+		$order_id = $this->input->post("order_id");
+		$itens = $this->input->post("itens");
+
+		return $this->order->update_itens_amount($order_id, $itens);
 	}
 
 	public function add_item () {
@@ -82,6 +92,39 @@ class OrderController extends CI_Controller {
 
 		flash($this, 'flashError', 'Houve um erro ao tentar adiciona o item!');
 		return $this->template->load('dashboard',  'order/new', $datas);
+	}
+
+	public function get_order_total () {
+		$this->beforeAction();
+		$order_id = $this->uri->segment(2);
+		$order =  $this->order->get_order($order_id, $this->get_current_user()['id']);
+		echo  json_encode($order);
+	}
+
+	public function finish_order () {
+		$this->beforeAction();
+		$order_id = $this->uri->segment(2);
+		$order =  $this->order->get_order($order_id, $this->get_current_user()['id']);
+
+		if (($order->delivery === 'Entrega') && ($order->address === null)) {
+			echo  json_encode(array('status' => 500, 'msg' => 'Endereço não encontrado! Você não possui nenhum endereço vinculado ao pedido. Favor informar o endereço de entrega.'));
+		}
+
+		if ($order->delivery === 'Entrega' && $order->freight === null) {
+			echo  json_encode(array('status' => 500, 'msg' => 'Valor de frete inválido! Verifique se o endereço principal vinculado a este pedido está correto. '));
+		}
+
+		if ($this->order->finish($order, $this->get_current_user()['id'])) {
+			flash($this, 'flashSuccess', 'Pedido finalizado com sucesso! Logo entraremos em contato para a confirmação deste pedido.');
+			echo  json_encode(array('status' => 200, 'msg' => 'Pedido finalizado com sucesso!'));
+		} else
+		 	echo  json_encode(array('status' => 500, 'msg' => 'Houve um erro ao tentar finalizar este pedido. Tente novamente.'));
+			//Endiar email
+	}
+
+	public function get_my_orders()  {
+		$this->beforeAction();
+		$this->setTitle('Meus Pedidos');
 	}
 
 	public function get_itens () {

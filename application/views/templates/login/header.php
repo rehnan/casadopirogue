@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="pt">
 <head>
       <meta http-equiv="Content-type" content="text/html; charset=utf-8">

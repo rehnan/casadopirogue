@@ -1,14 +1,12 @@
 <div class="page-header ">
-	<a class="btn btn-default"  href="order" role="button">Novo Pedido</a>
-	<button class="btn btn-primary   pull-right" type="button">
-		<i class="fa fa-shopping-cart" title="View 3 items in your shopping cart" aria-hidden="true"></i> Carrinho <span class="badge" ><?=  count($order->itens) ?></span>
-	</button>
-
+	ID Pedido: <span id="order_id"><?=  $order->id ?></span> Status:  <span class="label label-primary"><?=  $order->status ?></span>
 </div>
+<button class="btn btn-primary   pull-right" type="button">
+		<i class="fa fa-shopping-cart" title="Você possui <?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?> itens em seu carrinho" aria-hidden="true"></i> Carrinho <span class="badge" id="itens_amount_badge"><?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?></span>
+	</button><br>
 <div id="example-basic">
 	<h3> Escolha dos Produtos</h3>
 	<section>
-		<p>ID Pedido: <span id="order_id"><?=  $order->id ?></span> Status:  <span class="label label-primary"><?=  $order->status ?></span></p>
 		<form id="itens-form" name="itens-form" method="POST" action="itens">
 
 			<input type="hidden" name="item[pedido_id]" value="<?= $order->id ?>">
@@ -82,7 +80,7 @@
 					</div>
 				</div>
 				<?php } else { ?>
-				<div class="alert alert-warning">
+				<div class="alert alert-warning" id="set-main-address-flash">
 					Você não possui nenhum endereço principal configurado.<strong> <a title="Endereços" href="address" >Clique aqui para cadastrá-los e configurá-los.</a></strong>
 				</div>
 				<?php } ?>
@@ -90,36 +88,28 @@
 	</section>
 	<h3>Confirmação do Pedido</h3>
 	<section>
-		<table class="table table-striped">
+		<table id="table-total" class="table table-striped">
 			<thead>
 				<tr>
 					<th>Item</th>
 					<th>Categoria</th>
+					<th>Valor Pacote (UN)</th>
 					<th>Quantidade</th>
-					<th>Preço</th>
+					<th>Total Itens</th>
 				</tr>
 			</thead>
-			<tbody>
-			<?php $total = 0 ?>
-			<?php foreach ($order->itens as $item) {?>
-			<?php $total = $total + $item->package_price ?>
-				<tr>
-					<td><?= $item->name ?></td>
-					<td><?= $item->category ?></td>
-					<td><?= $item->amount ?></td>
-					<td>R$ <?= number_format($item->package_price, 2, ',', ' ');  ?></td>
-				</tr>
-			<?php } ?>
-				<tr>
-					<td colspan="3"><b>Frete</b></td>
-					<td>R$ <?=  number_format($order->freight,2,",",".") ?></td>
-				</tr>
-				<td><b>Total</b></td>
+			<tbody id="tbody-total"></tbody>
+			<tr>
+				<td colspan="4"><b>Frete</b></td>
+				<td><span id="total-frete"></span></td>
+			</tr>
+				<td><b>Total Pedido</b></td>
 				<td></td>
 				<td></td>
-				<td><b>R$ <?= number_format($total+$order->freight, 2, ',', '.'); ?></b></td>
-			</tbody>
+				<td></td>
+				<td><b><span id="total-pedido"></span></b></td>
 		</table>
+<button type="button" class="btn btn-primary" id="update-order" title="Atualizar Pedido"> Atualizar Pedido </button>
 	</section>
 </div>
 

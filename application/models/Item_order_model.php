@@ -40,12 +40,25 @@ class Item_Order_model extends CI_Model {
 	private function update_amount_itens ($item, $amount_itens) {
 		$where =  array('order_id' => $item->order_id, 'item_id' => $item->item_id);
 		$total_amount = $amount_itens+$item->amount;
-		$total_price = $total_amount * $item->package_price;
    		$this->db->set('amount', ($amount_itens+$item->amount));
-   		$this->db->set('package_price',  $total_price);
    		$this->db->where($where);
    		return  ($this->db->update('item_order')) ? true : false;
 	}
+
+         public function set_amount_itens($order_id, $itens) {
+                    $where =  array('order_id' =>$order_id);
+                    foreach ($itens as $key => $item) {
+                        $where['item_id'] = $item['item_id'];
+                        if($item['amount'] <= 0) {
+                              $this->db->delete('item_order', $where);
+                        } else {
+                              $this->db->set('amount', $item['amount']);
+                              $this->db->where($where);
+                              $this->db->update('item_order');
+                        }
+                    }
+                  return true;
+         }
 
 	private function insert ($item) {
 		return ($this->db->insert('item_order', $item)) ? true : false;
