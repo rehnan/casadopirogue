@@ -21,9 +21,9 @@
       <nav class="navbar" role="navigation">
 
          <div class="container">
-            
+
             <div class="row">
-               <div class="col-md-3">  
+               <div class="col-md-3">
                   <!-- LOGO -->
                   <a href="#" title="Casa do Pirogue">
                      <h1>
@@ -32,7 +32,7 @@
                   </a>
                   <!-- LOGOTIPO / MENU MOBILE-->
                   <div class="navbar-header">
-                     
+
 
                      <!-- MENU MOBILE TRIGGER -->
                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
@@ -53,7 +53,7 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Nossos Produtos</a></li>
                         <li><a href="#">Pedidos Online</a></li>
-                        <li><a href="#">Sobre nós</a></li>                          
+                        <li><a href="#">Sobre nós</a></li>
                         <li><a href="#contato" id="contato">Contato</a></li>
 
                      </ul>
@@ -78,10 +78,10 @@
                            <span title="Fernando" >Nome do Usuário Logado</span>
                            <p><?= anchor('logout', 'Deslogar', 'title="Sair" class="sair"') ?> <span><i class="fa fa-sign-out" aria-hidden="true"></i> </span></p>
                         </div>
-                        <a href="<?= base_url('order') ?>" class="menu">Novo Pedido</a>
-                         <a href="" class="menu">Meus dados cadastrais</a>
+                        <a href="<?= base_url('order') ?>" class="menu">Fazer Pedido</a>
                         <a href="<?= base_url('my-orders') ?>" class="menu">Meus pedidos</a>
-                        <a href="<?= base_url('address') ?>" class="menu">Meu endereço</a>
+                        <a href="<?= base_url('address') ?>" class="menu">Meus Endereços</a>
+                        <a href="" class="menu">Meus dados cadastrais</a>
                      </div>
                   </div>
                   <div class="col-md-9">

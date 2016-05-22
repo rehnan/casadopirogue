@@ -35,7 +35,7 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="table-responsive">
-								<table class="table table">
+								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th>Nº</th>
@@ -51,7 +51,7 @@
 											<td><?= $item->item_id ?></td>
 											<td><?= $item->name ?> </td>
 											<td><?= $item->amount ?> </td>
-											<td><?= $item->package_price ?> </td>
+											<td>R$ <?=  number_format($item->package_price,2,",","." ); ?> </td>
 											<td>R$ <?= number_format(($item->amount * $item->package_price),2,",","." );  ?> </td>
 										</tr>
 									<?php } ?>
@@ -68,14 +68,17 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<center> Endereço de Entrega </center>
-							<?php if ($order->delivery === 'Entrega') { ?>
+							<center> Endereço para	 Retirada </center>
+							<?php if ($order->delivery === 'Retirada') { ?>
 								<?php print_r($item->address->number) ?>
 								<!-- <p><?=  $item->address->street.', '.$item->address->number.' - '.$item->address->complement ?></p>
 								<p>Bairro: <?=  $item->address->neighborhood ?></p>
 								<p>Cidade: <?=  $item->address->city ?></p>
 								<p>CEP: <?=  $item->address->zip_code ?></p>
 								<p><?=  $item->address->uf ?>/Brasil</p> -->
+								<div class="embed-responsive embed-responsive-4by3" >
+								<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4838.2573169111265!2d-49.2433969896013!3d-25.374666196112454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce65918e2edeb%3A0x52a3db81ee2910b7!2sR.+Prof.+Rodolfo+Belz%2C+369+-+Santa+C%C3%A2ndida%2C+Curitiba+-+PR!5e0!3m2!1spt-BR!2sbr!4v1463952185379" width="500" height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
+								</div>
 							<?php } ?>
 						</div>
 					</div>

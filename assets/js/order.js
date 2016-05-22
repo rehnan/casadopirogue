@@ -1,5 +1,7 @@
 $(document).ready(function (){
 
+
+
 	$("#example-basic").steps({
 		headerTag: "h3",
 		bodyTag: "section",
@@ -71,10 +73,18 @@ $(document).ready(function (){
 		return calculate_freight ($(this).val())
 	});
 
+
 	function calculate_freight (mode_delivery_selected) {
 		var order_id = $('#order_id').text();
 		if (mode_delivery_selected == 'Entrega') {
 			var mode = mode_delivery_selected;
+
+			/*var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+			var marker = new google.maps.Marker({
+			  position: myLatLng,
+			  map: map,
+			  icon: iconBase + 'schools_maps.png'
+			});*/
 
 			var destino = $("#rua").text()+' - '+$("#bairro").text()+' '+$("#cidade").text()+'/'+$("#estado").text()+' - '+$("#cep").text();
 			var origem = 'Rua Prof. Rodolfo Belz, 369 - Santa Cândida Curitiba - PR';
@@ -84,6 +94,12 @@ $(document).ready(function (){
 				destination: destino,
 				travelMode: google.maps.TravelMode.DRIVING
 			};
+
+			var directionsDisplay = new google.maps.DirectionsRenderer;
+			var map = new google.maps.Map(document.getElementById('map'));
+
+			directionsDisplay.setMap(map);
+
 			$("#address_main").show();
 
 			directionsService.route(request, function(response, status) {
@@ -102,6 +118,7 @@ $(document).ready(function (){
 					var address = Number($('#address_id').text());
 					var freight = frete.replace(',', '.');
 
+					directionsDisplay.setDirections(response);
 					return save_delivery_mode(order_id, mode, address, freight, distance);
 				} else {
 					$("#distancia").text('Não Encontrada');
@@ -113,11 +130,13 @@ $(document).ready(function (){
 
 		} else {
 			$("#address_main").hide();
-			return save_delivery_mode(order_id, $(this).val(), null, 0.00, 0);
+			return save_delivery_mode(order_id, mode_delivery_selected, null, 0.00, 0);
 
 		}
 
 	}
+
+	//http://stackoverflow.com/questions/18444161/google-maps-responsive-resize
 
 	$('#selecao-item').change(function(){
 		if ($('#selecao-item').val() == '[Selecione um Produto]') {
@@ -130,6 +149,11 @@ $(document).ready(function (){
 	});
 
 	function get_itens() {
+
+		if ($('#selecao-item').is(':visible') === false)
+			return false;
+
+
 		var category = $('#selecao-item').val().toLowerCase();
 		var url = 'order/itens/'+category;
 
