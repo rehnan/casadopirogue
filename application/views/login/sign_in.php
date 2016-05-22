@@ -2,7 +2,7 @@
  	<div class="pg pg-login">
  		<div class="container">
  			<div class="row">
- 				<div class="col-md-6 borda">
+ 				<div class="col-md-6">
  					<div class="login">
  						<p>Login <i class="fa fa-sign-in" aria-hidden="true"></i></p>
  						<?=  form_sign_in('login', $login_url, $user); ?>

@@ -17,6 +17,125 @@ ESTRUTURAÇÃO BASE (Palupa Framework v1)
 body{
 	font-family: "Roboto Condensed";
 }
+/* TOPO */
+	.topo{
+		min-height: 130px;
+		z-index: 2;
+		width: 100%;
+		background: #fff;
+		border-bottom: solid 1px #FF6D00;
+
+	}
+		.topo .navbar{
+			position: relative!important;
+			min-height: 76px!important;
+			margin-bottom: inherit!important;
+			border: none!important;
+			z-index:2;
+		}
+			.topo .navbar .navbar-header{
+		
+			}
+				.topo .navbar  a{
+					display:block;
+				    margin: 15px 0 0;
+				}
+					.topo .navbar  a h1{
+						background: url(../img/logo3.png);
+						display: block;
+						width: 311px;
+						height: 93px;
+						text-indent: -9999em;
+						background-repeat: no-repeat;
+						margin: 0 auto;
+						/* background-size: cover!important; */
+					}
+				.topo .navbar .navbar-toggle{
+					border: solid 1px red;
+					margin: 15px;
+				}
+				.topo .navbar .navbar-toggle .icon-bar{
+					background:red;
+				}
+			.topo .navbar .navbar-collapse{
+	
+			}
+				.topo .navbar .navbar-collapse .navbar-nav{
+					margin: 0px 30px 0 0;
+					min-height: 0;
+					float: right!important;
+					padding: 30px 0 0;
+				}
+					.topo .navbar .navbar-collapse .navbar-nav li{
+		
+					}
+						.topo .navbar .navbar-collapse .navbar-nav li a{
+							text-transform:uppercase;
+							font-weight:bold;
+							color:#F76A00;
+							line-height:20px;
+							font-size:17px;
+						}
+							.topo .navbar .navbar-collapse .navbar-nav li a:hover{
+								color:#b62329;
+								text-decoration:underline;
+
+							}
+							.nav>li>a:hover, .nav>li>a:focus{
+								background-color:transparent !important;
+							}
+/* RODAPE */
+	.rodape{
+		width:100%;
+		background:#FF6D00;
+		min-height:100px;
+		margin-top: 60px;
+		padding:50px 0 0 0;
+	}
+		.rodape ul{
+			list-style:none;
+			padding:0;
+			margin:0;
+			text-align:center;			
+		}
+			.rodape ul li{
+				display: inline-block;
+				text-align: left;
+				margin: 0 50px;
+				color:#fff;
+				vertical-align:top;
+			}
+				.rodape ul li a{
+					display:block;
+					color:#fff;
+				}
+				.rodape ul li span{
+					font-weight: 600;
+					font-size: 16px;
+					display:block;
+					text-transform: uppercase;
+					margin-bottom:10px;
+				}
+				.rodape ul li p{
+					margin:0;
+				}
+		.copyright{
+		
+			text-align: center;
+			width: 100%;
+			margin-top: 70px;
+			background: #FF6D00;
+		}
+			.copyright i{
+				color:#fff;
+			}
+			.copyright p{
+				display: inline;
+				color: #fff;
+				margin: 0 5px;
+				font-size: 15px;
+			}
+
 /* PG */
 	.pg{
 
@@ -105,7 +224,7 @@ body{
 		margin-top:30px;
 	}
 		.borda{
-			border:solid 1px #ccc;
+			border-left:solid 1px #ccc;
 		}
 		.pg-login .login{
 			width: 100%;
@@ -690,3 +809,73 @@ body{
 
 					}
 
+/* MÉDIA */
+	@media (max-width: 1024px) {
+		
+		.rodape ul li{
+			margin:0 0 0 40px;
+		}
+		
+	}
+	@media (max-width: 991px) {
+		
+		.borda{
+			border-top:solid 1px #ccc;
+			border-left: inherit;
+		}
+		
+	}
+	@media (max-width: 768px){
+		.topo .navbar .navbar-collapse .navbar-nav{
+			padding:0;
+		}
+		
+		.rodape ul li {
+		    margin: 0 0 0 30px;
+		}
+		
+		
+		
+	}
+	
+	@media (max-width: 425px){
+		.rodape ul li{
+			margin: 0px 0 20px 0;
+			display: block;
+			text-align: center;
+		}
+		
+		.topo .navbar .navbar-collapse .navbar-nav{
+			width:100%;
+			margin:0;
+		}
+		.topo .navbar .navbar-collapse .navbar-nav li{
+			text-align:left;
+		}
+		.topo .navbar .navbar-collapse .navbar-nav li a{
+			
+			line-height: 10px;
+			
+		}
+		.topo .navbar .navbar-collapse{
+			background: #F5F5F5;
+			border-top: solid 1px #F76A35;
+			border-bottom: solid 1px #F76A35;
+		}
+	}
+	
+	/* DEVELOPERS */
+.developers{
+	background:#4A4A4A;
+}
+	.developers span{
+		color:#fff;
+	}
+	.developers .area a{
+		text-transform:uppercase;
+		font-weight:bold;
+		color:#fff;
+	}
+		.developers a b{
+	
+		}
