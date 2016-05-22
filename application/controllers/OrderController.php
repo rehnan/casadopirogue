@@ -124,7 +124,24 @@ class OrderController extends CI_Controller {
 
 	public function get_my_orders()  {
 		$this->beforeAction();
+
 		$this->setTitle('Meus Pedidos');
+
+		$orders = $this->order->get_list_orders($this->get_current_user()['id']);
+
+		$datas = array(
+			'page_title' => $this->getTitle(),
+			'facebook_logout_url' => $this->facebook->get_logout_url(),
+			'orders' =>$orders
+		);
+
+		if (count($orders) <= 0) {
+			flash($this, 'flashInfo', 'Nenhum pedido realizado no momento.');
+			return $this->template->load('dashboard',  'order/my-orders', $datas);
+		}
+
+		flash($this, 'flashSuccess', 'Total de pedidos encontrados: '.count($orders));
+		return $this->template->load('dashboard',  'order/my-orders', $datas);
 	}
 
 	public function get_itens () {
@@ -195,7 +212,6 @@ class OrderController extends CI_Controller {
 			'distance' => ($this->input->post("distance") === '') ? 0 : $this->input->post("distance")
 		);
 
-		print_r($datas);
 
 		return ($this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
 	}

@@ -36,7 +36,7 @@
 			<p class="error"><?php echo validation_errors(); ?> </p>
 			<div class="form-group  input-group-lg">
 				<button  type="submit" class="btn btn-default btn-lg" id="add-item"> Adicionar Item </button>
-				<a class="btn btn-danger btn-lg"   id="cancelar-pedido" href="order/<?= $order->id ?>/cancel" role="button" data-toggle="confirmation">Cancelar Pedido</a>
+				<a class="btn btn-danger btn-lg"   id="cancelar-pedido" href="<?= base_url("order/$order->id/cancel") ?>" role="button" data-toggle="confirmation">Cancelar Pedido</a>
 			</div>
 
 		</form>
@@ -64,7 +64,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" href="#collapse1"><span id="address_id"><?= $order->address_id->id ?></span> | <?= $order->address_id->address_name  ?> <i class="fa fa-truck" aria-hidden="true"></i>
-								<div  class="pull-right" > Distância:<span id="distancia"><?=  $order->distance ?>Km</span>. Preço Frete:<span id="frete"><?=  number_format($order->freight,2,",",".")  ?></span> </div>
+								<div  class="pull-right" > Distância: <b><span id="distancia"><?=  $order->distance ?>Km</span></b>. Preço Frete: <b><span id="frete"><?=  number_format($order->freight,2,",",".")  ?></span></b></div>
 							</a>
 						</h4>
 					</div>
@@ -95,7 +95,7 @@
 					<th>Categoria</th>
 					<th>Valor Pacote (UN)</th>
 					<th>Quantidade</th>
-					<th>Total Itens</th>
+					<th>Subtotal</th>
 				</tr>
 			</thead>
 			<tbody id="tbody-total"></tbody>

@@ -45,16 +45,16 @@ class Order_model extends CI_Model {
 
    	public function delete ($user_id, $order_id) {
 
-		$data = array (
-			'id' 	      => $order_id,
-			'user_id' => $user_id,
-			'status'   => 'Aberto'
-			);
+   		$data = array (
+   			'id' 	      => $order_id,
+   			'user_id' => $user_id,
+   			'status'   => 'Aberto'
+   			);
 
-		if ($this->db->delete('order', $data)) {
-			return true ;
-		}
-		return false;
+   		if ($this->db->delete('order', $data)) {
+   			return true ;
+   		}
+   		return false;
 
    	}
 
@@ -77,6 +77,32 @@ class Order_model extends CI_Model {
    		return $order[0];
    	}
 
+
+   	public function get_list_orders ($user_id) {
+
+   		$where =  array('status' => 'Pendente', 'user_id' => $user_id);
+
+   		$this->db->select('*');
+   		$this->db->from('order');
+   		$this->db->where($where);
+   		$this->db->or_where('status =', 'Pendente');
+   		$this->db->or_where('status =', 'Aprovado');
+
+   		$query = $this->db->get();
+   		$orders = $query->result();
+   		foreach ($orders as $index => $order) {
+
+   			if ($order->delivery === 'Entrega') {
+   				$orders[$index]->address = $this->order->get_address_delivery($order);
+   			}
+
+   			$orders[$index]->itens = $this->get_itens_order($order->id);
+
+                    }
+
+   		return $orders;
+   	}
+
    	public function check_by_order_open ($user_id) {
    		$where =  array('status' => 'Aberto', 'user_id' => $user_id);
    		$this->db->select('id');
@@ -95,26 +121,26 @@ class Order_model extends CI_Model {
 
    	private function get_itens_amount ($order_id) {
    		$where =  array('order_id' => $order_id);
-		$this->db->select('SUM(amount) As amount');
-		$this->db->from('item_order');
-		$this->db->where($where);
+   		$this->db->select('SUM(amount) As amount');
+   		$this->db->from('item_order');
+   		$this->db->where($where);
 
-		$query = $this->db->get();
+   		$query = $this->db->get();
 
-		 if ($query->num_rows() > 0) {
-		 	return $query->result()[0]->amount;;
-		 }
-		 return 0;
+   		if ($query->num_rows() > 0) {
+   			return $query->result()[0]->amount;;
+   		}
+   		return 0;
    	}
 
    	private function update_order ($order_id, $user_id) {
 
    		$where =  array('order_id' => $order_id);
-		$this->db->select('SUM(amount) As amount_itens , (SUM(amount) * package_price) as total');
-		$this->db->from('item_order');
-		$this->db->where($where);
+   		$this->db->select('SUM(amount) As amount_itens , (SUM(amount) * package_price) as total');
+   		$this->db->from('item_order');
+   		$this->db->where($where);
 
-		$query = $this->db->get();
+   		$query = $this->db->get();
 
    		$where =  array('id' => $order_id, 'Status' => 'Aberto', 'user_id' => $user_id, );
 
@@ -122,7 +148,7 @@ class Order_model extends CI_Model {
    		$datas = array (
    			'itens_amount' => $query->result()[0]->amount_itens,
    			'total' => $query->result()[0]->total
-   		);
+   			);
 
    		$this->db->where($where);
    		if ($this->db->update('order', $datas))
@@ -133,10 +159,10 @@ class Order_model extends CI_Model {
    	public function finish ($order, $user_id) {
 
    		$where =  array('id' => $order->id, 'user_id' => $user_id);
-		$datas  =  array();
-		$datas['status'] = 'Finalizado';
-		if ($order->delivery === 'Entrega') { $datas['total'] = $order->total + $order->freight; }
-		$this->db->where($where);
+   		$datas  =  array();
+   		$datas['status'] = 'Pendente';
+   		if ($order->delivery === 'Entrega') { $datas['total'] = $order->total + $order->freight; }
+   		$this->db->where($where);
 
    		if ($this->db->update('order', $datas))
    			return true;
@@ -168,6 +194,24 @@ class Order_model extends CI_Model {
    		if ($this->db->update('order', $datas))
    			return true;
    		return false;
+   	}
+
+   	public function get_address_delivery($order) {
+   		$where = array (
+   			'user_id' => $order->user_id,
+   			'id' => $order->address_id
+   		);
+
+   		$this->db->select('*');
+   		$this->db->from('address');
+   		$this->db->where($where);
+
+   		$query = $this->db->get();
+
+   		if ($query->num_rows() > 0) {
+   			return $query->custom_result_object('address_model')[0];
+   		}
+   		return null;
    	}
    }
 

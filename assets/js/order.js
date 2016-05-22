@@ -72,9 +72,6 @@ $(document).ready(function (){
 	});
 
 	function calculate_freight (mode_delivery_selected) {
-		var description_mode = (mode === 'Entrega') ? 'Solicitar entrega do pedido em meu endereço principal.' : 'Retirar o pedido no estabelecimento.';
-		flash('success', 'Modo atualizado com sucesso para:  '+description_mode);
-		return true;
 		var order_id = $('#order_id').text();
 		if (mode_delivery_selected == 'Entrega') {
 			var mode = mode_delivery_selected;
@@ -88,7 +85,9 @@ $(document).ready(function (){
 				travelMode: google.maps.TravelMode.DRIVING
 			};
 			$("#address_main").show();
+
 			directionsService.route(request, function(response, status) {
+
 				if (status == google.maps.DirectionsStatus.OK) {
 					console.log(response);
 					var route = response.routes[0];
@@ -105,8 +104,10 @@ $(document).ready(function (){
 
 					return save_delivery_mode(order_id, mode, address, freight, distance);
 				} else {
-					$("#distancia").text('Endereço não encontrado. Verifique se seu endereço está correto.');
-					return $("#frete").text('Não Calculado.');
+					$("#distancia").text('Não Encontrada');
+				       $("#frete").text('Não Calculado.');
+					flash('error', 'O frete não pôde ser calculado. Verifique se as informações do endereço principal configurado estão corretas.');
+    	 				return false;
 				}
 			});
 
@@ -185,15 +186,15 @@ $(document).ready(function (){
 			contentType: "application/json; charset=utf-8",
 			url: url,
 			success: function(data, status) {
-        			if (data.status === 200) { return  window.location = 'my-orders'; }
-        		},
-        		error: function(data, status) {
-        			if (data.status === 500) {
-        				flash('error', data.msg);
-        				return  false;
-        			}
-        		},
-        	});
+				if (data.status === 200) { return  window.location = 'my-orders'; }
+			},
+			error: function(data, status) {
+				if (data.status === 500) {
+					flash('error', data.msg);
+					return  false;
+				}
+			},
+		});
 	}
 
 	$('#update-order').click(function(event) {

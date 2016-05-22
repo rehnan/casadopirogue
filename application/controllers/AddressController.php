@@ -25,7 +25,7 @@ class AddressController extends CI_Controller {
 
 
 		if (count($address)  <= 0) {
-			flash($this, 'flashError', 'Você não possui nenhum endereço cadastrado!');
+			flash($this, 'flashInfo', 'Você não possui nenhum endereço cadastrado!');
 		}
 
 		//print_r($this->session->all_userdata());

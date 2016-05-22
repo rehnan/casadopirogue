@@ -33,7 +33,7 @@
                         </div>
                         <a href="<?= base_url('order') ?>" class="menu">Novo Pedido</a>
                          <a href="" class="menu">Meus dados cadastrais</a>
-                        <a href="" class="menu">Meus pedidos</a>
+                        <a href="<?= base_url('my-orders') ?>" class="menu">Meus pedidos</a>
                         <a href="<?= base_url('address') ?>" class="menu">Meu endereço</a>
                      </div>
                   </div>

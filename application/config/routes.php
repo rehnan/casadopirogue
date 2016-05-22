@@ -87,7 +87,7 @@ $route['order/([0-9]+)/total']['GET'] = 'OrderController/get_order_total';
 $route['order/([0-9]+)/finish']['GET'] = 'OrderController/finish_order';
 $route['order/([0-9]+)/update']['POST'] = 'OrderController/update_order';
 
-$route['order/my-orders']['GET'] = 'OrderController/get_my_orders';
+$route['my-orders']['GET'] = 'OrderController/get_my_orders';
 
 
 
