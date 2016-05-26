@@ -13,7 +13,7 @@
       <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/css/animate.css") ?>" />
       <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/css/jquery.steps.css") ?>" />
       <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/css/site.css") ?>" />
-      <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+      <!-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" /> -->
 </head>
 <body>
 <!-- TOPO -->
@@ -88,9 +88,3 @@
                         <div class="panel-body">
                         <?php require_once '_flashes.php'; ?>
                         <div id="ajax-flashes"></div>
-
-
-
-
-
-

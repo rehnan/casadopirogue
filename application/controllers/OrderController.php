@@ -114,12 +114,31 @@ class OrderController extends CI_Controller {
 			echo  json_encode(array('status' => 500, 'msg' => 'Valor de frete inválido! Verifique se o endereço principal vinculado a este pedido está correto. '));
 		}
 
-		if ($this->order->finish($order, $this->get_current_user()['id'])) {
+		$order_finished = $this->order->finish($order, $this->get_current_user()['id']);
+		if ($order_finished) {
+			$this->sendEmail($order_finished);
 			flash($this, 'flashSuccess', 'Pedido finalizado com sucesso! Logo entraremos em contato para a confirmação deste pedido.');
 			echo  json_encode(array('status' => 200, 'msg' => 'Pedido finalizado com sucesso!'));
 		} else
 		 	echo  json_encode(array('status' => 500, 'msg' => 'Houve um erro ao tentar finalizar este pedido. Tente novamente.'));
 			//Endiar email
+	}
+
+	private function sendEmail($order) {
+   		$this->email->clear();
+                    $this->load->library('email');
+                    $this->email->initialize($this->config->item('config_email'));
+                    $this->output->set_content_type('text/plain', 'UTF-8');
+                    //$this->email->set_newline("\r\n");
+		$this->email->to('rehnancarolinoo@gmail.com');
+        		$this->email->from($this->get_current_user()['email'], 'Novo Pedido');
+        		$this->email->subject('Novo Pedido');
+        		$data = array( 'order'=> $order );
+        		$body = $this->load->view('emails/request_order', $data, TRUE);
+        		$this->email->message($body);
+        		$this->email->send();
+        		 //		$this->email->print_debugger();
+
 	}
 
 	public function get_my_orders()  {
@@ -216,6 +235,30 @@ class OrderController extends CI_Controller {
 		return ($this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
 	}
 
+	public function approve_order () {
+		$approve_order_link = trim($this->uri->segment(3)) ;
+          	$approved = $this->order->update_status($approve_order_link, 'approve_order_link');
 
+          	if ($approved) {
+          		flash($this, 'flashSuccess', 'Pedido aprovado com sucesso!');
+          	} else {
+          		flash($this, 'flashError', 'Este pedido não pôde ser aprovado!');
+          	}
+
+          	redirect('login');
+	}
+
+	public function disapprove_order () {
+		$disapprove_order_link = trim($this->uri->segment(3)) ;
+          	$disapproved = $this->order->update_status($disapprove_order_link, 'disapprove_order_link');
+
+          	if ($disapproved) {
+          		flash($this, 'flashSuccess', 'Pedido cancelado com sucesso!');
+          	} else {
+          		flash($this, 'flashError', 'Este pedido não pôde ser cancelado!');
+          	}
+
+          	redirect('login');
+	}
 
 }

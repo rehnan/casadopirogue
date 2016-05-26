@@ -12,6 +12,8 @@ class Order_model extends CI_Model {
    	public $created_at;
    	public $updated_at;
    	public $delivery;
+   	public $approve_order_link;
+   	public $disapprove_order_link;
 
    	public function __construct() {
    		parent::__construct();
@@ -158,14 +160,35 @@ class Order_model extends CI_Model {
 
    	public function finish ($order, $user_id) {
 
+   		$approve_order_link =   str_shuffle(sha1($order->id.$user_id).sha1(date("Y-m-d H:i:s")));
+   		$disapprove_order_link =   str_shuffle(sha1($order->id.$user_id).sha1(date("Y-m-d H:i:s")));
+
    		$where =  array('id' => $order->id, 'user_id' => $user_id);
-   		$datas  =  array();
-   		$datas['status'] = 'Pendente';
+   		$datas = array (
+		 	'status' => 'Pendente',
+		 	'approve_order_link' => $approve_order_link,
+		 	'disapprove_order_link' => $disapprove_order_link
+		);
+
    		if ($order->delivery === 'Entrega') { $datas['total'] = $order->total + $order->freight; }
    		$this->db->where($where);
 
-   		if ($this->db->update('order', $datas))
-   			return true;
+   		$this->db->update('order', $datas);
+
+   		$where =  array('status' => 'Pendente', 'user_id' => $user_id, 'order.id' => $order->id);
+   		$this->db->select('*');
+   		$this->db->from('order');
+   		$this->db->where($where);
+
+   		$query = $this->db->get();
+		 // Retorno número de linhas $query->num_rows();
+		 if ($query->num_rows() > 0) {
+	   		$new_order = $query->custom_result_object('order_model');
+	   		$new_order[0]->itens = $this->get_itens_order($new_order[0]->id);
+	   		//$order[0]->itens_amount = $this->get_itens_amount($order_id);
+	   		$new_order[0]->address_id = $this->address->get_delivery_address($new_order[0]->user_id);
+	   		return $new_order[0];
+   		}
    		return false;
    	}
 
@@ -173,6 +196,40 @@ class Order_model extends CI_Model {
 
    		return $this->item_order->set_amount_itens($order_id, $itens);
 
+   	}
+
+   	public function update_status ($link, $status) {
+
+   		$where = array ( $status => $link );
+   		$this->db->select('id');
+   		$this->db->from('order');
+   		$this->db->where($where);
+
+   		$query = $this->db->get();
+
+   		if ($query->num_rows() <= 0) { return false; }
+
+		$order = $query->custom_result_object('order_model')[0];
+
+		$where = array ( 'id' => $order->id );
+
+		$datas = array (
+		 	'approve_order_link' => NULL,
+		 	'disapprove_order_link' => NULL
+		);
+
+   		if ($status === 'approve_order_link') {
+   			$datas['status'] = 'Aprovado';
+   		}
+
+   		if ($status === 'disapprove_order_link') {
+   			$datas['status'] = 'Cancelado';
+   		}
+
+   		$this->db->where($where);
+   		if ($this->db->update('order', $datas))
+   			return true;
+   		return false;
    	}
 
 

@@ -21,7 +21,7 @@
 					<p>Sáb:</p>
 					<p>Das 8:00h á 12:00h</p>
 				</li>
-					
+
 				<li>
 					<span>Empresa</span>
 					<a href="">Sobre nós</a>
@@ -48,7 +48,7 @@
 				devcarolino
 			</a>
 		</div>
-		<div class="col-md-6 area text-center">				
+		<div class="col-md-6 area text-center">
 			<span>Designer</span>
 			<a href="https://www.facebook.com/dldesignerc/?fref=ts" target="_blank">
 				dl designer
@@ -64,6 +64,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/geral.js") ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/flashes.js") ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/order.js") ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/find_address_by_zip_code.js") ?>"></script>
 
 </body>
 </html>

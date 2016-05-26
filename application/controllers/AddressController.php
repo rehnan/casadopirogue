@@ -139,11 +139,6 @@ class AddressController extends CI_Controller {
 			'trim'     => 'a descrição do endereço não pode ser vazio!'
 		));
 
-		$this->form_validation->set_rules('address[number]', 'Número', 'trim|required',  array(
-			'required'      => 'Você deve informar o número!',
-			'trim'     => 'O camo número não pode ser vazio!'
-		));
-
 		$this->form_validation->set_rules('address[complement]', 'Complemento', 'trim|required',  array(
 			'required'      => 'Você deve informar o complemento do endereço!',
 			'trim'     => 'O camo complemento não pode ser vazio!'

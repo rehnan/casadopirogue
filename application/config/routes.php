@@ -89,6 +89,8 @@ $route['order/([0-9]+)/update']['POST'] = 'OrderController/update_order';
 
 $route['my-orders']['GET'] = 'OrderController/get_my_orders';
 
+$route['order/to_approve/(:any)']['GET'] = 'OrderController/approve_order';
+$route['order/to_disapprove/(:any)']['GET'] = 'OrderController/disapprove_order';
 
 
 
