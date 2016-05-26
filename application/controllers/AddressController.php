@@ -18,10 +18,10 @@ class AddressController extends CI_Controller {
 		$address = $this->address->get_all($this->get_current_user()['id']);
 
 		$datas = array(
-                        'page_title' => $this->getTitle(),
-                        'facebook_logout_url' => $this->facebook->get_logout_url(),
-                        'address' => $address
-            	);
+			'page_title' => $this->getTitle(),
+			'facebook_logout_url' => $this->facebook->get_logout_url(),
+			'address' => $address
+		);
 
 
 		if (count($address)  <= 0) {
@@ -29,37 +29,52 @@ class AddressController extends CI_Controller {
 		}
 
 		//print_r($this->session->all_userdata());
-            $this->template->load('dashboard',  'address/index', $datas);
+		$this->template->load('dashboard',  'address/index', $datas);
 	}
 
 	public function new_address () {
 
 		$this->beforeAction();
+		$address = $this->address;
+		$datas   = array(
+			'page_title' => $this->getTitle(),
+			'facebook_logout_url' => $this->facebook->get_logout_url(),
+			'address' => $address,
+			'method' => base_url('address/new')
+		);
+		$this->template->load('dashboard',  'address/new', $datas);
+	}
 
-		$address =$this->address;
+	public function edit_address () {
+		$this->beforeAction();
+		$this->setTitle('Editar Endereço');
+		$address_id = $this->uri->segment(2);
+		$user_id = $this->get_current_user()['id'];
+		$address = $this->address->find($user_id, $address_id);
 
-		$datas = array(
-                        'page_title' => $this->getTitle(),
-                        'facebook_logout_url' => $this->facebook->get_logout_url(),
-                        'address' =>$address
-             );
+		$datas   = array(
+			'page_title' => $this->getTitle(),
+			'address' => $address,
+			'method' => base_url('address/'.$address_id.'/edit')
+		);
 
-		//print_r($this->session->all_userdata());
-            $this->template->load('dashboard',  'address/new', $datas);
+		if ($address) {
+			return $this->template->load('dashboard',  'address/edit', $datas);
+		}
 
+		flash($this, 'flashError', 'Endereço não encontrado!');
+		return redirect('address');
 	}
 
 	public function create_address () {
 
 		$this->beforeAction();
-
 		$address = $this->getPost();
-
 		$datas = array(
-                        'page_title' => $this->getTitle(),
-                        'facebook_logout_url' => $this->facebook->get_logout_url(),
-                        'address' =>$address
-             );
+			'page_title' => $this->getTitle(),
+			'address' =>$address,
+			'method' => base_url('address/new')
+		);
 
 		if (!$this->validate_address()) {
 			flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
@@ -70,6 +85,37 @@ class AddressController extends CI_Controller {
 
 		if ($this->address->create($address)) {
 			flash($this, 'flashSuccess', 'Endereço '.$address->address_name.' adicionado com sucesso!');
+			redirect('address');
+		}
+	}
+
+	public function update_address () {
+
+		$this->beforeAction();
+		$address_id = $this->uri->segment(2);
+		$user_id = $this->get_current_user()['id'];
+		$address_found = $this->address->find($user_id, $address_id);
+
+		if (!$address_found) {
+			flash($this, 'flashError', 'Endereço não encontrado!');
+			return redirect('address');
+		}
+
+		$address = $this->getPost();
+		$datas = array(
+			'page_title' => $this->getTitle(),
+			'address' => $address,
+			'method' => base_url('address/'.$address_id.'/edit')
+		);
+
+		if (!$this->validate_address()) {
+			flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
+			return $this->template->load('dashboard',  'address/new', $datas);
+		}
+
+
+		if ($this->address->update($user_id, $address_id, $address)) {
+			flash($this, 'flashSuccess', 'Endereço atualizado com sucesso!');
 			redirect('address');
 		}
 	}
@@ -112,11 +158,13 @@ class AddressController extends CI_Controller {
 
 	private function beforeAction() {
 		if (!$this->session->has_userdata('current_user'))
-			return redirect('login');
+		return redirect('login');
 	}
 
 	private function getPost() {
 		$adrs = $this->address;
+		$adrs->id = $this->input->post("address[id]");
+		$adrs->user_id = $this->input->post("address[user_id]");
 		$adrs->address_name = $this->input->post("address[name]");
 		$adrs->uf = $this->input->post("address[uf]");
 		$adrs->city = $this->input->post("address[city]");

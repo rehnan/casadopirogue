@@ -18,8 +18,8 @@
 				<p><?=  $adrs->uf ?>/Brasil</p>
 			</div>
 			<div class="panel-footer">
-				<a href="#" name="editar-endereco"> Editar </a>|
-				<a href='<?=  base_url("address/$adrs->id/delete")  ?>' name="excluir-endereco"> Excluir </a>|
+				<a href='<?=  base_url("address/$adrs->id/edit") ?>' name="editar-endereco"> Editar </a>|
+				<a href='<?=  base_url("address/$adrs->id/delete") ?>' name="excluir-endereco"> Excluir </a>|
 				<?= (!$adrs->main) ? "<a href='".base_url("address/$adrs->id/main")."'  name='checkar-como-principal'>Marcar como Principal</a>" : '' ?>
 			</div>
 		</div>

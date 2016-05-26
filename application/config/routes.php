@@ -101,6 +101,8 @@ $route['address/new']['POST'] = 'AddressController/create_address';
 $route['address/new']['GET'] = 'AddressController/new_address';
 $route['address/([0-9]+)/delete']['GET'] = 'AddressController/delete_address';
 $route['address/([0-9]+)/main']['GET'] = 'AddressController/check_main_address';
+$route['address/([0-9]+)/edit']['GET'] = 'AddressController/edit_address';
+$route['address/([0-9]+)/edit']['POST'] = 'AddressController/update_address';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
