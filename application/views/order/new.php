@@ -1,15 +1,15 @@
 <div class="page-header ">
-	ID Pedido: <span id="order_id"><?=  $order->id ?></span> Status:  <span class="label label-primary"><?=  $order->status ?></span>
+	ID Pedido: <span id="order_id"><?=  (isset($order)) ? $order->id : '' ?></span> Status:  <span class="label label-primary"><?=  (isset($order)) ? $order->status : '' ?></span>
 </div>
 <button class="btn btn-primary   pull-right" type="button">
-	<i class="fa fa-shopping-cart" title="Você possui <?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?> itens em seu carrinho" aria-hidden="true"></i> Carrinho <span class="badge" id="itens_amount_badge"><?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?></span>
-</button><br>
+	<i class="fa fa-shopping-cart" title="Você possui <?=  (isset($order) && is_null($order->itens_amount)) ? 0 : $order->itens_amount ?> itens em seu carrinho" aria-hidden="true"></i> Carrinho <span class="badge" id="itens_amount_badge"><?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?></span>
+</button><br><br><br>
 <div id="example-basic">
-	<h3> Escolha dos Produtos</h3>
+	<h3>Escolha dos Produtos <i class="fa fa-shopping-basket" title="Escolha seu Produtos"></i></h3>
 	<section>
 		<form id="itens-form" name="itens-form" method="POST" action="itens">
 
-			<input type="hidden" name="item[pedido_id]" value="<?= $order->id ?>">
+			<input type="hidden" name="item[pedido_id]" value="<?= (isset($order)) ? $order->id : '' ?>">
 
 			<div class="form-group  input-group-sm">
 				<label  for="selecao-item">Pirogue / Pastel: </label>
@@ -42,7 +42,7 @@
 		</form>
 	</section>
 
-	<h3>Modo de Entrega</h3>
+	<h3>Modo de Entrega <i class="fa fa-truck" title="Modo de Entrega"></i></h3>
 	<section>
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/delivery-policy">
 
@@ -101,7 +101,8 @@
 		<div id="map" style="width:100%; height:100%"></div>
 
 	</section>
-	<h3>Confirmação do Pedido</h3>
+
+	<h3>Confirmação do Pedido <i class="fa fa-thumbs-o-up" title="Modo de Entrega"></i></h3>
 	<section>
 		<table id="table-total" class="table table-striped">
 			<thead>
@@ -124,11 +125,25 @@
 			<td></td>
 			<td><b><span id="total-pedido"></span></b></td>
 		</table>
-		<button type="button" class="btn btn-primary" id="update-order" title="Atualizar Pedido"> Atualizar Pedido </button>
+
+		<br>
+		<i class="fa fa-credit-card-alt" title="Modo de Pagamento"></i> Informe o modo de pagamento:
+		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/payment-mode">
+
+			<div class="radio">
+				<label>
+					<input type="radio" name="opcaoModoPagamento" id="dinheiro" value="Dinheiro">
+					1. Dinheiro
+				</label>
+			</div>
+
+			<div class="radio">
+				<label>
+					<input type="radio" name="opcaoModoPagamento" id="cartao-credito" value="Cartão">
+					2. Cartão de Crédito
+				</label>
+			</div>
+
+		<button type="button" class="btn btn-primary" id="update-order" title="Atualizar Pedido"> Atualizar Quantidade </button>
 	</section>
 </div>
-
-
-
-
-

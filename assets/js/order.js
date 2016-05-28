@@ -210,11 +210,13 @@ $(document).ready(function (){
 			contentType: "application/json; charset=utf-8",
 			url: url,
 			success: function(data, status) {
+				console.log(data);
 				if (data.status === 200) { return  window.location = 'my-orders'; }
 			},
 			error: function(data, status) {
 				if (data.status === 500) {
 					flash('error', data.msg);
+					console.log(data);
 					return  false;
 				}
 			},

@@ -29,6 +29,7 @@ class AddressController extends CI_Controller {
 		}
 
 		//print_r($this->session->all_userdata());
+		flash($this, 'flashInfo', 'Você possui '.count($address). ' endereço(s) cadastrado(s).');
 		$this->template->load('dashboard',  'address/index', $datas);
 	}
 
@@ -42,6 +43,7 @@ class AddressController extends CI_Controller {
 			'address' => $address,
 			'method' => base_url('address/new')
 		);
+		
 		$this->template->load('dashboard',  'address/new', $datas);
 	}
 

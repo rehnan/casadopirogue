@@ -102,42 +102,54 @@ class OrderController extends CI_Controller {
 	}
 
 	public function finish_order () {
+		error_reporting(E_ERROR | E_PARSE);
 		$this->beforeAction();
 		$order_id = $this->uri->segment(2);
 		$order =  $this->order->get_order($order_id, $this->get_current_user()['id']);
 
-		if (($order->delivery === 'Entrega') && ($order->address === null)) {
+		if (($order->delivery === 'Entrega') && (is_null($order->address))) {
 			echo  json_encode(array('status' => 500, 'msg' => 'Endereço não encontrado! Você não possui nenhum endereço vinculado ao pedido. Favor informar o endereço de entrega.'));
+			return false;
 		}
 
-		if ($order->delivery === 'Entrega' && $order->freight === null) {
+		if ($order->delivery === 'Entrega' && is_null($order->freight)) {
 			echo  json_encode(array('status' => 500, 'msg' => 'Valor de frete inválido! Verifique se o endereço principal vinculado a este pedido está correto. '));
+			return false;
 		}
 
 		$order_finished = $this->order->finish($order, $this->get_current_user()['id']);
+
 		if ($order_finished) {
 			$this->sendEmail($order_finished);
 			flash($this, 'flashSuccess', 'Pedido finalizado com sucesso! Logo entraremos em contato para a confirmação deste pedido.');
 			echo  json_encode(array('status' => 200, 'msg' => 'Pedido finalizado com sucesso!'));
-		} else
-		 	echo  json_encode(array('status' => 500, 'msg' => 'Houve um erro ao tentar finalizar este pedido. Tente novamente.'));
-			//Endiar email
+			return true;
+		} else {
+			echo  json_encode(array('status' => 500, 'msg' => 'Houve um erro ao tentar finalizar este pedido. Tente novamente.'));
+			return false;
+		}
 	}
 
 	private function sendEmail($order) {
-   		$this->email->clear();
-                    $this->load->library('email');
-                    $this->email->initialize($this->config->item('config_email'));
-                    $this->output->set_content_type('text/plain', 'UTF-8');
-                    //$this->email->set_newline("\r\n");
-		$this->email->to('rehnancarolinoo@gmail.com');
-        		$this->email->from($this->get_current_user()['email'], 'Novo Pedido');
-        		$this->email->subject('Novo Pedido');
-        		$data = array( 'order'=> $order );
-        		$body = $this->load->view('emails/request_order', $data, TRUE);
-        		$this->email->message($body);
-        		$this->email->send();
-        		 //		$this->email->print_debugger();
+		$path_image = "http://{$_SERVER['SERVER_NAME']}".base_url('assets/img/logo3.png');
+		$data = array(
+			'fileExt' => get_mime_by_extension($path_image),
+			'image'   => base64_encode(file_get_contents($path_image)),
+			'order'   => $order
+		);
+		$this->email->clear();
+		$this->load->library('email');
+		$this->email->initialize($this->config->item('config_email'));
+		$this->output->set_content_type('text/plain', 'UTF-8');
+		//$this->email->set_newline("\r\n");
+		$this->email->to($this->get_current_user()['email']);
+		$this->email->from('pedidos@casadopirogue.com.br', 'Novo Pedido');
+		$this->email->subject('Novo Pedido');
+		$data = array( 'order'=> $order );
+		$body = $this->load->view('emails/request_order', $data, TRUE);
+		$this->email->message($body);
+		$this->email->send();
+		//		$this->email->print_debugger();
 
 	}
 
@@ -163,6 +175,21 @@ class OrderController extends CI_Controller {
 		return $this->template->load('dashboard',  'order/my-orders', $datas);
 	}
 
+	public function email_page () {
+		error_reporting(E_ERROR | E_PARSE);
+		$this->beforeAction();
+		$path_image = "http://{$_SERVER['SERVER_NAME']}".base_url('assets/img/logo3.png');
+		$order =  $this->order->get_order(80, $this->get_current_user()['id']);
+		print_r($order);
+		$data = array(
+			'fileExt' => get_mime_by_extension($path_image),
+			'image'   => base64_encode(file_get_contents($path_image)),
+			'order'   => $order
+		);
+		return $this->load->view('emails/request_order', $data);
+
+	}
+
 	public function get_itens () {
 		$this->beforeAction();
 		$category = $this->uri->segment(3);
@@ -179,7 +206,7 @@ class OrderController extends CI_Controller {
 
 	private function beforeAction() {
 		if (!$this->session->has_userdata('current_user'))
-			return redirect('login');
+		return redirect('login');
 	}
 
 	private function get_current_user () {
@@ -191,18 +218,18 @@ class OrderController extends CI_Controller {
 		$this->form_validation->set_rules('item[categoria]', 'Categoria', 'trim|required',  array(
 			'required'      => 'Você deve informar o sabor do Item!',
 			'trim'     => 'O camo sabor não pode ser vazio!'
-			));
+		));
 
 		$this->form_validation->set_rules('item[sabor]', 'Sabor','trim|required', array(
 			'required'      => 'Você deve informar a categoria do Item!',
 			'trim'     => 'O campo categoria não pode ser vazio!'
-			));
+		));
 
 		$this->form_validation->set_rules('item[quantidade]', 'Quantidade','trim|required|is_natural', array(
 			'required'      => 'Você deve informar a quantidade do item desejado!',
 			'trim'     => 'O campo quantidade não pode ser vazio!',
 			'is_natural' => 'A quantidade deve ser maior do que zero!'
-			));
+		));
 
 		return $this->form_validation->run();
 	}
@@ -225,40 +252,40 @@ class OrderController extends CI_Controller {
 
 		$order_id = $this->input->post("order_id");
 		$datas = array (
-			'address_id' => ($this->input->post("address_id") === '') ? NULL : $this->input->post("address_id"),
-			'freight' => $this->input->post("freight"),
-			'delivery' =>  $this->input->post("mode"),
-			'distance' => ($this->input->post("distance") === '') ? 0 : $this->input->post("distance")
-		);
+		'address_id' => ($this->input->post("address_id") === '') ? NULL : $this->input->post("address_id"),
+		'freight' => $this->input->post("freight"),
+		'delivery' =>  $this->input->post("mode"),
+		'distance' => ($this->input->post("distance") === '') ? 0 : $this->input->post("distance")
+	);
 
 
-		return ($this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
+	return ($this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
+}
+
+public function approve_order () {
+	$approve_order_link = trim($this->uri->segment(3)) ;
+	$approved = $this->order->update_status($approve_order_link, 'approve_order_link');
+
+	if ($approved) {
+		flash($this, 'flashSuccess', 'Pedido aprovado com sucesso!');
+	} else {
+		flash($this, 'flashError', 'Este pedido não pôde ser aprovado!');
 	}
 
-	public function approve_order () {
-		$approve_order_link = trim($this->uri->segment(3)) ;
-          	$approved = $this->order->update_status($approve_order_link, 'approve_order_link');
+	redirect('login');
+}
 
-          	if ($approved) {
-          		flash($this, 'flashSuccess', 'Pedido aprovado com sucesso!');
-          	} else {
-          		flash($this, 'flashError', 'Este pedido não pôde ser aprovado!');
-          	}
+public function disapprove_order () {
+	$disapprove_order_link = trim($this->uri->segment(3)) ;
+	$disapproved = $this->order->update_status($disapprove_order_link, 'disapprove_order_link');
 
-          	redirect('login');
+	if ($disapproved) {
+		flash($this, 'flashSuccess', 'Pedido cancelado com sucesso!');
+	} else {
+		flash($this, 'flashError', 'Este pedido não pôde ser cancelado!');
 	}
 
-	public function disapprove_order () {
-		$disapprove_order_link = trim($this->uri->segment(3)) ;
-          	$disapproved = $this->order->update_status($disapprove_order_link, 'disapprove_order_link');
-
-          	if ($disapproved) {
-          		flash($this, 'flashSuccess', 'Pedido cancelado com sucesso!');
-          	} else {
-          		flash($this, 'flashError', 'Este pedido não pôde ser cancelado!');
-          	}
-
-          	redirect('login');
-	}
+	redirect('login');
+}
 
 }

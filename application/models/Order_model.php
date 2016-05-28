@@ -20,6 +20,7 @@ class Order_model extends CI_Model {
 		$this->load->model('address_model', 'address');
 		$this->load->model('item_model', 'item');
 		$this->load->model('item_order_model', 'item_order');
+		$this->load->model('user_model', 'user');
 	}
 
 	public function create ($user_id) {
@@ -64,25 +65,28 @@ public function get_order ($order_id, $user_id) {
 	//Update order before select
 	$this->update_order($order_id, $user_id);
 
-	$where =  array('status' => 'Aberto', 'user_id' => $user_id, 'order.id' => $order_id);
+	$where =  array('status' => 'Aberto', 'user_id' => $user_id, 'id' => $order_id);
 	$this->db->select('*');
 	$this->db->from('order');
 	$this->db->where($where);
 
 	$query = $this->db->get();
-	// Retorno número de linhas $query->num_rows();
-	$order = $query->custom_result_object('order_model');
-	$order[0]->itens = $this->get_itens_order($order_id);
-	//$order[0]->itens_amount = $this->get_itens_amount($order_id);
-	$order[0]->address_id = $this->address->get_delivery_address($user_id);
-
-	return $order[0];
+	if ($query->num_rows() > 0) {
+		$order = $query->custom_result_object('order_model')[0];
+		$order->itens = $this->get_itens_order($order_id);
+		//$order[0]->itens_amount = $this->get_itens_amount($order_id);
+		$order->address_id = $this->address->get_delivery_address($user_id);
+		$order->user = $this->user->findById($user_id);
+		return $order;
+	}
+	return false;
 }
 
 
 public function get_list_orders ($user_id) {
 
 	$where =  array('user_id' => $user_id, 'status' => 'Pendente');
+
 	$this->db->select('*');
 	$this->db->from('order');
 	$this->db->where($where);

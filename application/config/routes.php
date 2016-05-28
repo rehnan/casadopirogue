@@ -92,6 +92,7 @@ $route['my-orders']['GET'] = 'OrderController/get_my_orders';
 $route['order/to_approve/(:any)']['GET'] = 'OrderController/approve_order';
 $route['order/to_disapprove/(:any)']['GET'] = 'OrderController/disapprove_order';
 
+$route['order/email_page']['GET'] = 'OrderController/email_page';
 
 
 $route['itens']['POST'] = 'OrderController/add_item';
