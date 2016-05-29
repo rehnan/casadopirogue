@@ -141,4 +141,4 @@ $autoload['libraries'] = array('session', 'database', 'encrypt', 'template', 'ja
 
 $autoload['model'] = array();
 
-$autoload['helper'] = array('url', 'form' , 'partial', 'flashes', 'form_custom', 'date', 'file');
+$autoload['helper'] = array('url', 'form' , 'partial', 'flashes', 'form_custom', 'date', 'file', 'status_order');

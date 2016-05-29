@@ -91,6 +91,7 @@ public function get_list_orders ($user_id) {
 	$this->db->from('order');
 	$this->db->where($where);
 	$this->db->or_where('status =', 'Aprovado');
+	$this->db->or_where('status =', 'Cancelado');
 	$this->db->order_by("id", "DESC");
 
 	$query = $this->db->get();

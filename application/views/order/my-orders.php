@@ -21,7 +21,7 @@
 								<td ><?= date("d/m/Y", strtotime($order->created_at)) ?></td>
 								<td >R$ <?= number_format($order->total,2,",","." ); ?></td>
 								<td><?= $order->delivery ?> </td>
-								<td> <span class="label label-<?= ($order->status === 'Pendente') ? 'warning' : 'success' ?>"><?=  ($order->status === 'Pendente') ? 'Aguardando Aprovação' : 'Pedido Aprovado'; ?></span></td>
+								<td> <span class="label label-<?= status_label($order->status) ?>"><?=  status_message($order->status) ?></span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -87,4 +87,3 @@
 	</div>
 </div>
 <?php } ?>
-
