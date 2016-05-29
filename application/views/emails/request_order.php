@@ -8,6 +8,16 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic|Roboto+Condensed:400,700italic,400italic,700,300,300italic' rel='stylesheet' type='text/css'>
 
   <!-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" /> -->
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ddd;
+    }
+
+  </style>
 </head>
 <body style="border:solid 1px #ccc;border-radius:6px;font-family:Roboto;">
   <!-- TOPO -->
@@ -25,34 +35,33 @@
     </nav>
   </div>
 </header>
-
-<section>
-<h2><center>Requisição de Pedido</center></h2>
 <hr>
 
+<section>
+<h3><center>Requisição de Pedido</center></h3>
+
 <div style="margin-left: 30px">
-<h3>Informações para Contato: </h3>
-    <fieldset style="width:500px">
-    <legend>Dados Pessoais:</legend>
+<article>
+  <p style="color:green"> Aceitar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/order/to_approve/{$order->approve_order_link}"  ?> title="Clique para aprovar este pedido"> Aceitar Pedido </a></p>
+  <p style="color:red"> Recusar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/order/to_disapprove/{$order->disapprove_order_link}"  ?> title="Clique para rejeitar este pedido"> Rejeitar Pedido </a></p>
+</article>
+<h4>Informações para Contato: </h4>
         <article>
             <p>Cliente solicitante: <b><?php echo $order->user->name ?></b><p>
             <p>Telefone 1: <b><?php echo $order->user->phone1 ?></b><p>
             <p>Telefone 2: <b><?php echo $order->user->phone2 ?></b><p>
             <p>Email: <b><?php echo $order->user->email ?></b><p>
         </article>
-        <hr>
-        <article>
-          <p> Aceitar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/order/to_approve/{$order->approve_order_link}"  ?> title="Clique para aprovar este pedido"> Aceitar Pedido </a></p>
-          <p> Recusar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/order/to_disapprove/{$order->disapprove_order_link}"  ?> title="Clique para reijeitar este pedido"> Rejeitar Pedido </a></p>
-        </article>
-    </fieldset>
+
 </div>
 <div style="margin-left: 30px">
-<h3>Informações do Pedido: </h3>
+<h4>Informações do Pedido: </h4>
     <fieldset style="width:500px">
     <legend>Dados Pedido:</legend>
         <article>
+          <p>Número do Pedido: <b><?php echo $order->id ?></b></p>
           <p>Data de solicitação: <b><?php echo date("d/m/Y", strtotime($order->created_at)) ?></b></p>
+          <p>Dia e horário desejado para a <?php echo $order->delivery ?> do Pedido: <b> </b>
           <p>Modo de Entrega: <b><?php echo $order->delivery ?></b></p>
           <p>Modo de Pagamento: <b>Dinheiro</b</p>
 
@@ -61,7 +70,7 @@
                 <tr>
                   <th>Nº</th>
                   <th>Item</th>
-                  <th>Quantidade</th>
+                  <th>Qtd.</th>
                   <th>Valor Unitário</th>
                   <th>Subtotal</th>
                 </tr>
@@ -77,12 +86,12 @@
                  <?php } ?>
                </tbody>
                 <tr>
-        				    <td align="center" colspan="4"><b>Frete</b></td>
-        				    <td align="center" >R$ <?= number_format($order->freight,2,",","." ); ?></td>
+        				    <td align="center" colspan="4" style="background-color: #f5f5f5"><b>Frete</b></td>
+        				    <td align="center" style="background-color: #f5f5f5">R$ <?= number_format($order->freight,2,",","." ); ?></td>
         			  </tr>
                  <tr>
-        				    <td align="center" colspan="4"><b>Total</b></td>
-        				    <td align="center"><b>R$ <?php echo number_format($order->total,2,",","." ); ?></b></td>
+        				    <td align="center" colspan="4" style="background-color: #f5f5f5"><b>Total</b></td>
+        				    <td align="center" style="background-color: #f5f5f5"><b>R$ <?php echo number_format($order->total,2,",","." ); ?></b></td>
         			  </tr>
             </table>
         </article>
@@ -91,7 +100,7 @@
 
 <?php if ($order->delivery === 'Entrega') { ?>
 <div style="margin-left: 30px;">
-    <h3>Informações do Endereço de Entrega: </h3>
+    <h4>Informações do Endereço de Entrega: </h4>
     <fieldset style="width:500px">
     <legend>Endereço de Entrega:</legend>
         <article>
@@ -110,7 +119,7 @@
 </section>
 
 
-  <footer class="rodape" style="width:100%;background:#FF6D00;min-height:100px;margin-top:200px;padding:50px 0 0 0;">
+  <footer class="rodape" style="width:100%;background:#FF6D00;min-height:100px;margin-top:20px;padding:50px 0 0 0;">
 			<div class="container">
 				<ul style="list-style:none;padding:0;margin:0;text-align:center;">
 					<li style="display: inline-block;text-align: left;margin: 20px 50px;color:#fff;vertical-align:top;">

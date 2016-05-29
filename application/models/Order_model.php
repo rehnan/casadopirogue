@@ -186,11 +186,12 @@ $this->db->where($where);
 $query = $this->db->get();
 // Retorno número de linhas $query->num_rows();
 if ($query->num_rows() > 0) {
-	$new_order = $query->custom_result_object('order_model');
-	$new_order[0]->itens = $this->get_itens_order($new_order[0]->id);
+	$new_order = $query->custom_result_object('order_model')[0];
+	$new_order->itens = $this->get_itens_order($new_order->id);
 	//$order[0]->itens_amount = $this->get_itens_amount($order_id);
-	$new_order[0]->address_id = $this->address->get_delivery_address($new_order[0]->user_id);
-	return $new_order[0];
+	$new_order->address_id = $this->address->get_delivery_address($new_order->user_id);
+	$new_order->user = $this->user->findById($new_order->user_id);
+	return $new_order;
 }
 return false;
 }

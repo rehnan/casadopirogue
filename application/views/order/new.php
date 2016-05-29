@@ -29,10 +29,6 @@
 				<label  for="quantidade-item">Quantidade:</label>
 				<input type="number" placeholder="Quantidade de pacotes"  value="<?= $item->amount ?>" name="item[quantidade]" class="form-control" id="quantidade-item">
 			</div>
-			<div class="form-group">
-				<label  for="observaçao-item">Observação:</label>
-				<textarea placeholder="Observações" class="form-control" rows="3 "   id="observaçao-item" name="item[observacao]"><?= $item->description ?></textarea>
-			</div>
 			<p class="error"><?php echo validation_errors(); ?> </p>
 			<div class="form-group  input-group-sm">
 				<button  type="submit" class="btn btn-default btn-sm" id="add-item"> Adicionar Item </button>
@@ -45,18 +41,40 @@
 	<h3>Modo de Entrega <i class="fa fa-truck" title="Modo de Entrega"></i></h3>
 	<section>
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/delivery-policy">
-
+			<div class="form-inline">
+				<div class="form-group">
+					<label  for="date-delivery">Data para Retirada/Entrega:</label><br>
+					<div class="input-group">
+					<span class="input-group-btn">
+		        <button class="btn btn-default" data-content="Caso necessite a liberação de alguma porta que não esteja listada abaixo, nos contate via chat e consulte a viabilidade da liberação." data-toggle="popover" title="Informações"  type="button">?</button>
+		      </span>
+				  <input type="date" class="form-control" name="date-delivery" value="<?php echo date("Y-m-d", now()); ?>">
+				</div>
+			 	</div>
+				<div class="form-group">
+					<label  for="as">Às/A partir das</label><br>
+				 <select class="form-control" id="as" name="as">
+					<option></option>
+				  <option>às</option>
+				  <option>a partir das</option>
+				 </select>
+			 </div>
+				<div class="form-group">
+				<label  for="hour-delivery">Horário:</label>
+				 <input type="time" class="form-control" name="hour-delivery"  pubdate="pubdate">
+			 </div>
+			</div>
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="retirada" value="Retirada" <?= ($order->delivery === 'Retirada') ? 'checked' : '' ?> >
-					Retirar o pedido no estabelecimento.
+					<b>Retirar o pedido no estabelecimento.</b>
 				</label>
 			</div>
 			Ou <br>
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="entrega" value="Entrega" <?= ($order->delivery === 'Entrega') ? 'checked' : '' ?>>
-					Solicitar entrega do pedido em meu endereço principal.
+					<b>Solicitar entrega do pedido em meu endereço principal.</b>
 				</label>
 			</div>
 			<?php if ($order->address_id) { ?>
@@ -144,6 +162,8 @@
 				</label>
 			</div>
 
-		<button type="button" class="btn btn-primary" id="update-order" title="Atualizar Pedido"> Atualizar Quantidade </button>
+
+
+		<button type="button" class="btn btn-primary" id="update-order" title="Atualizar Pedido">Salvar Alterações</button>
 	</section>
 </div>
