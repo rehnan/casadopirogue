@@ -180,33 +180,33 @@ class AddressController extends CI_Controller {
 
 	private function validate_address () {
 		$this->form_validation->set_rules('address[name]', 'Nome', 'trim|required',  array(
-			'required'      => 'Você deve informar um nome para o endereço!',
-			'trim'     => 'O camo nome do endereço não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar um nome para o endereço!</p>',
+			'trim'     => '<p class="error">O camo nome do endereço não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('address[street]', 'Rua', 'trim|required',  array(
-			'required'      => 'Você deve informar a descrição do endereço!',
-			'trim'     => 'a descrição do endereço não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar a descrição do endereço!</p>',
+			'trim'     => '<p class="error">a descrição do endereço não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('address[complement]', 'Complemento', 'trim|required',  array(
-			'required'      => 'Você deve informar o complemento do endereço!',
-			'trim'     => 'O camo complemento não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar o complemento do endereço!</p>',
+			'trim'     => '<p class="error">O camo complemento não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('address[neighborhood]', 'Bairro', 'trim|required',  array(
-			'required'      => 'Você deve informar o bairro!',
-			'trim'     => 'O camo bairro não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar o bairro!</p>',
+			'trim'     => '<p class="error">O camo bairro não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('address[uf]', 'UF', 'trim|required',  array(
-			'required'      => 'Você deve informar o estado!',
-			'trim'     => 'O camo UF não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar o estado!</p>',
+			'trim'     => '<p class="error">O camo UF não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('address[city]', 'Cidade', 'trim|required',  array(
-			'required'      => 'Você deve informar a cidade!',
-			'trim'     => 'O camo cidade não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar a cidade!</p>',
+			'trim'     => '<p class="error">O camo cidade não pode ser vazio!</p>'
 		));
 
 		return $this->form_validation->run();

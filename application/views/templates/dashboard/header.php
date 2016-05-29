@@ -70,12 +70,12 @@
                <center><p class="titulo">Área do Cliente <i class="fa fa-user" aria-hidden="true"></i></p></center>
                <div class="row borda">
                   <div class="col-md-3">
-                     <div class="sidebar">
+                     <div class="sidebar" id="sidebar-altura">
                         <div class="perfil">
                            <div class="foto" title="Fernando">
 
                            </div>
-                           <span title="Fernando" >Nome do Usuário Logado</span>
+                           <span title="Fernando" ><?php echo   $this->session->get_userdata('current_user')['current_user']['name']; ?></span>
                            <p><?= anchor('logout', 'Sair', 'title="Sair" class="sair"') ?> <span><i class="fa fa-sign-out" aria-hidden="true"></i> </span></p>
                         </div>
                         <a href="<?= base_url('order') ?>" class="menu">Fazer Pedido</a>
@@ -84,8 +84,8 @@
                         <a href="" class="menu">Meus dados cadastrais</a>
                      </div>
                   </div>
-                  <div class="col-md-9">
+                  <div class="col-md-9" id="altura">
                         <div class="panel-body">
                         <?php require_once '_flashes.php'; ?>
                         <div id="ajax-flashes"></div>
-                        <p class="mensagem-conta">Olá <span>Hudson</span> seja bem vindo a sua conta na <i>Casa do Pirogue!</i> Para realiza alterações em sua conta utilize o menu ao lado.</p>
+                       

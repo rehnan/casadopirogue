@@ -216,19 +216,19 @@ class OrderController extends CI_Controller {
 	public function validate_post_item() {
 
 		$this->form_validation->set_rules('item[categoria]', 'Categoria', 'trim|required',  array(
-			'required'      => 'Você deve informar o sabor do Item!',
-			'trim'     => 'O camo sabor não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar o sabor do Item!</p>',
+			'trim'     => '<p class="error">O camo sabor não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('item[sabor]', 'Sabor','trim|required', array(
-			'required'      => 'Você deve informar a categoria do Item!',
-			'trim'     => 'O campo categoria não pode ser vazio!'
+			'required'      => '<p class="error">Você deve informar a categoria do Item!</p>',
+			'trim'     => '<p class="error">O campo categoria não pode ser vazio!</p>'
 		));
 
 		$this->form_validation->set_rules('item[quantidade]', 'Quantidade','trim|required|is_natural', array(
-			'required'      => 'Você deve informar a quantidade do item desejado!',
-			'trim'     => 'O campo quantidade não pode ser vazio!',
-			'is_natural' => 'A quantidade deve ser maior do que zero!'
+			'required'      => '<p class="error">Você deve informar a quantidade do item desejado!</p>',
+			'trim'     => '<p class="error">O campo quantidade não pode ser vazio!</p>',
+			'is_natural' => '<p class="error">A quantidade deve ser maior do que zero!</p>'
 		));
 
 		return $this->form_validation->run();
