@@ -72,11 +72,11 @@
                   <div class="col-md-3">
                      <div class="sidebar">
                         <div class="perfil">
-                           <div class="foto" title="Fernando" style="background: url(img/face.jpg);">
+                           <div class="foto" title="Fernando">
 
                            </div>
                            <span title="Fernando" >Nome do Usuário Logado</span>
-                           <p><?= anchor('logout', 'Deslogar', 'title="Sair" class="sair"') ?> <span><i class="fa fa-sign-out" aria-hidden="true"></i> </span></p>
+                           <p><?= anchor('logout', 'Sair', 'title="Sair" class="sair"') ?> <span><i class="fa fa-sign-out" aria-hidden="true"></i> </span></p>
                         </div>
                         <a href="<?= base_url('order') ?>" class="menu">Fazer Pedido</a>
                         <a href="<?= base_url('my-orders') ?>" class="menu">Meus pedidos</a>
@@ -88,3 +88,4 @@
                         <div class="panel-body">
                         <?php require_once '_flashes.php'; ?>
                         <div id="ajax-flashes"></div>
+                        <p class="mensagem-conta">Olá <span>Hudson</span> seja bem vindo a sua conta na <i>Casa do Pirogue!</i> Para realiza alterações em sua conta utilize o menu ao lado.</p>
