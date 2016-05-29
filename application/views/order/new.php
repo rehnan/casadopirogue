@@ -1,9 +1,10 @@
 <div class="page-header ">
 	ID Pedido: <span id="order_id"><?=  (isset($order)) ? $order->id : '' ?></span> Status:  <span class="label label-primary"><?=  (isset($order)) ? $order->status : '' ?></span>
-</div>
 <button class="btn btn-primary   pull-right" type="button">
 	<i class="fa fa-shopping-cart" title="Você possui <?=  (isset($order) && is_null($order->itens_amount)) ? 0 : $order->itens_amount ?> itens em seu carrinho" aria-hidden="true"></i> Carrinho <span class="badge" id="itens_amount_badge"><?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?></span>
 </button><br><br><br>
+</div>
+
 <div id="example-basic">
 	<h3>Escolha dos Produtos <i class="fa fa-shopping-basket" title="Escolha seu Produtos"></i></h3>
 	<section>
@@ -26,7 +27,7 @@
 			</div>
 
 			<div class="form-group input-group-sm">
-				<label  for="quantidade-item">Quantidade:</label>
+				<label  for="quantidade-item">Quantidade de pacotes:</label>
 				<input type="number" placeholder="Quantidade de pacotes"  value="<?= $item->amount ?>" name="item[quantidade]" class="form-control" id="quantidade-item">
 			</div>
 			<p class="error"><?php echo validation_errors(); ?> </p>

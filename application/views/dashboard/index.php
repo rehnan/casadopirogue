@@ -1,0 +1,1 @@
+ <p class="mensagem-conta">Olá <span><?php echo   $this->session->get_userdata('current_user')['current_user']['name']; ?></span> seja bem vindo a sua conta na <i>Casa do Pirogue!</i> Para realiza alterações em sua conta utilize o menu ao lado.</p>

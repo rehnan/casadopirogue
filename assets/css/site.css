@@ -153,15 +153,52 @@ body{
     	color: #fff!important;
     	font-size: 16px!important;
 	}
-/* PG */
-	.pg{
-
+	.alert-info{
+		background-color: #FF6D00!important;
+    	border-color: #fff!important; 
+    	color: #fff!important;
+    	font-size: 16px!important;
 	}
-	.pg .error{
+	.label-primary{
+		background-color: #FF6D00!important;
+    	border-color: #fff!important; 
+    	color: #fff!important;
+    	font-size: 12px!important;
+	}
+	.btn-primary{
+		background-color: #FF6D00!important;
+    	border-color: #fff!important; 
+    	color: #fff!important;
+    	font-size: 17px!important;
+	}
+		.btn-primary:hover .badge{
+			background-color: #FF6D00!important;
+			color:#fff!important;
+		}
+	.btn-primary .badge{
+		color:#FF6D00!important;
+	}
+	.wizard>.steps>ul>li{
+		width: 33%!important;
+	}
+	.wizard>.content{
+		min-height: 24em!important;
+	    overflow: inherit!important;
+	}
+	.wizard>.content>.body{
+		position: inherit!important;
+	}
+	
+	.error{
 		color: red;
 		text-transform: uppercase;
 		font-style: italic;
 	}
+/* PG */
+	.pg{
+
+	}
+	
 
 		.pg input,textarea {
 
@@ -452,7 +489,7 @@ body{
 			padding:20px;
 		    background: #F7F7F7;
 		    border-right:solid #ccc 1px;
-	        min-height: 400px;
+	        min-height: 700px;
 
 		}
 			.pg-minha-conta .sidebar .perfil .foto{
