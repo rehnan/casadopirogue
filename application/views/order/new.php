@@ -43,28 +43,17 @@
 	<section>
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/delivery-policy">
 			<div class="form-inline">
-				<div class="form-group">
 					<label  for="date-delivery">Data para Retirada/Entrega:</label><br>
 					<div class="input-group">
-					<span class="input-group-btn">
-		        <button class="btn btn-default" data-content="Caso necessite a liberação de alguma porta que não esteja listada abaixo, nos contate via chat e consulte a viabilidade da liberação." data-toggle="popover" title="Informações"  type="button">?</button>
-		      </span>
-				  <input type="date" class="form-control" name="date-delivery" value="<?php echo date("Y-m-d", now()); ?>">
-				</div>
-			 	</div>
-				<div class="form-group">
-					<label  for="as">Às/A partir das</label><br>
-				 <select class="form-control" id="as" name="as">
-					<option></option>
-				  <option>às</option>
-				  <option>a partir das</option>
-				 </select>
-			 </div>
-				<div class="form-group">
-				<label  for="hour-delivery">Horário:</label>
-				 <input type="time" class="form-control" name="hour-delivery"  pubdate="pubdate">
-			 </div>
+					  <input type="date" class="form-control" id="date-delivery" name="date-delivery" value="<?= (isset($order->delivery_date)) ? $order->delivery_date : date("Y-m-d", now()); ?>">
+						<span class="input-group-btn">
+		        	<button class="btn btn-default" type="button" id="update-delivery-date">
+								<i class="fa fa-edit" title="Salvar Alteração"></i>
+							</button>
+	      		</span>
+				 </div>
 			</div>
+			<br>
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="retirada" value="Retirada" <?= ($order->delivery === 'Retirada') ? 'checked' : '' ?> >
@@ -79,14 +68,14 @@
 				</label>
 			</div>
 			<?php if ($order->address_id) { ?>
-			<div class="panel panel-default" id="address_main">
+			<div id="address_main">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapse1"><span id="address_id"><?= $order->address_id->id ?></span> | <?= $order->address_id->address_name  ?> <i class="fa fa-truck" aria-hidden="true"></i></a>
+						<a data-toggle="collapse" href="#collapse1"><i class="fa fa-truck" aria-hidden="true"></i> <span id="address_id"><?= $order->address_id->id ?></span> | <?= $order->address_id->address_name  ?></a>
 						<div  class="pull-right" > Distância: <b><span id="distancia"><?=  $order->distance ?>Km</span></b>. Preço Frete: <b><span id="frete"><?=  number_format($order->freight,2,",",".")  ?></span></b></div>
-
 					</h4>
 				</div>
+
 				<div id="collapse1" class="panel-collapse collapse">
 					<div class="panel-body">
 						<p><span id="rua"><?= $order->address_id->street.', '.$order->address_id->number ?></span> <?= $order->address_id->complement ?> </p>
@@ -97,17 +86,17 @@
 						<p><a href="address" name="trocar-endereco"> Mudar Endereço Principal </a></p>
 					</div>
 				</div>
-			</div>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseMaps">Rota de Entrega <i class="fa fa-map-marker" aria-hidden="true"></i>
-						</a>
-					</h4>
-				</div>
-				<div id="collapseMaps" class="panel-collapse collapse">
-
+				<div >
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" href="#collapseMaps"> <i class="fa fa-map-marker" aria-hidden="true"></i> Rota de Entrega
+							</a>
+						</h4>
+					</div>
+					<div id="collapseMaps" class="panel-collapse collapse">
+						<div id="map" style="width:100%; height:300px"></div>
+					</div>
 				</div>
 			</div>
 
@@ -117,7 +106,7 @@
 			</div>
 			<?php } ?>
 		</form>
-		<div id="map" style="width:100%; height:100%"></div>
+
 
 	</section>
 
@@ -151,19 +140,17 @@
 
 			<div class="radio">
 				<label>
-					<input type="radio" name="opcaoModoPagamento" id="dinheiro" value="Dinheiro">
+					<input type="radio" name="opcaoModoPagamento" id="dinheiro" value="Dinheiro"  <?= ($order->payment_mode === 'Dinheiro') ? 'checked' : '' ?> >
 					1. Dinheiro
 				</label>
 			</div>
 
 			<div class="radio">
 				<label>
-					<input type="radio" name="opcaoModoPagamento" id="cartao-credito" value="Cartão">
+					<input type="radio" name="opcaoModoPagamento" id="cartao-credito" value="Cartão" <?= ($order->payment_mode === 'Cartão') ? 'checked' : '' ?> >
 					2. Cartão de Crédito
 				</label>
 			</div>
-
-
 
 		<button type="button" class="btn btn-primary" id="update-order" title="Atualizar Pedido">Salvar Alterações</button>
 	</section>

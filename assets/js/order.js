@@ -1,7 +1,6 @@
 $(document).ready(function (){
 
 
-
 	$("#example-basic").steps({
 		headerTag: "h3",
 		bodyTag: "section",
@@ -61,6 +60,11 @@ $(document).ready(function (){
 	    	}
 	    });
 
+	$('#update-delivery-date').click(function(){
+		var date = $('#date-delivery').val();
+		var order_id = $('#order_id').text();
+		save_delivery_date(order_id, date);
+	})
 
 	$("#entrega").attr("checked") ? $("#address_main").show() : $("#address_main").hide();
 
@@ -136,6 +140,8 @@ $(document).ready(function (){
 
 	}
 
+
+
 	//http://stackoverflow.com/questions/18444161/google-maps-responsive-resize
 
 	$('#selecao-item').change(function(){
@@ -188,7 +194,23 @@ $(document).ready(function (){
 				flash('success', 'Modo atualizado com sucesso para:  '+description_mode);
 			},
 			error: function(data, status) {
-				alert('asas');
+				alert('Erro ao tentar atualizar o modo de entrega!');
+			},
+		});
+	}
+
+	function save_delivery_date(order_id, date) {
+
+		var url = 'order/delivery-date';
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: {'order_id' : order_id, 'delivery_date' : date},
+			success: function(data, status) {
+				flash('success', 'Data de Entrega/Retirada Atualizada com sucesso!');
+			},
+			error: function(data, status) {
+				alert('Erro tentar atualizar a data de Entrega/Retirada!');
 			},
 		});
 	}

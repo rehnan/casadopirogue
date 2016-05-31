@@ -28,7 +28,8 @@ class Order_model extends CI_Model {
 		{
 			$data = array (
 			'user_id' => $user_id,
-			'status'  => 'Aberto'
+			'status'  => 'Aberto',
+			'delivery_date' => date("Y-m-d")
 		);
 
 		if ($this->db->insert('order', $data)) {
@@ -254,7 +255,15 @@ public function set_delivery_mode ($user_id, $order_id, $datas) {
 	$where =  array('id' => $order_id, 'Status' => 'Aberto', 'user_id' => $user_id, );
 	$this->db->where($where);
 	if ($this->db->update('order', $datas))
-	return true;
+			return true;
+	return false;
+}
+
+public function set_delivery_date ($user_id, $order_id, $datas) {
+	$where =  array('id' => $order_id, 'status' => 'Aberto', 'user_id' => $user_id, );
+	$this->db->where($where);
+	if ($this->db->update('order', $datas))
+			return true;
 	return false;
 }
 

@@ -163,14 +163,4 @@ class User_model extends CI_Model {
 
 }
 
- /*
-        Fonte: http://oscardias.com/br/desenvolvimento/php/codeigniter/criando-um-app-usando-codeigniter-parte-5-projetos/
-
-        $this->db->where('user', $user);
-        $this->db->order_by('name', 'asc');
-        $get = $this->db->get('project');
-
-        if($get->num_rows > 0) return $get->result_array();
-        return array();*/
-
-        ?>
+?>

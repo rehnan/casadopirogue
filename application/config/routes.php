@@ -82,6 +82,7 @@ $route['order/(:any)/cancel']['GET'] = 'OrderController/delete_order';
 $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
 
 $route['order/delivery-mode']['POST'] = 'OrderController/set_delivery_mode';
+$route['order/delivery-date']['POST'] = 'OrderController/set_delivery_date';
 
 $route['order/([0-9]+)/total']['GET'] = 'OrderController/get_order_total';
 $route['order/([0-9]+)/finish']['GET'] = 'OrderController/finish_order';

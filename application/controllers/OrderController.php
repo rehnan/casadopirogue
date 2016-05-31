@@ -262,6 +262,16 @@ class OrderController extends CI_Controller {
 	return ($this->order->set_delivery_mode($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
 }
 
+public function set_delivery_date(){
+
+	$this->beforeAction();
+
+	$order_id = $this->input->post("order_id");
+	$datas = array ('delivery_date' =>  $this->input->post("delivery_date"));
+
+	return ($this->order->set_delivery_date($this->get_current_user()['id'], $order_id, $datas)) ? true: false;
+}
+
 public function approve_order () {
 	$approve_order_link = trim($this->uri->segment(3)) ;
 	$approved = $this->order->update_status($approve_order_link, 'approve_order_link');
