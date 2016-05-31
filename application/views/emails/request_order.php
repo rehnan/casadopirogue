@@ -47,10 +47,10 @@
 </article>
 <h4>Informações para Contato: </h4>
         <article>
-            <p>Cliente solicitante: <b><?php echo $order->user->name ?></b><p>
-            <p>Telefone 1: <b><?php echo $order->user->phone1 ?></b><p>
-            <p>Telefone 2: <b><?php echo $order->user->phone2 ?></b><p>
-            <p>Email: <b><?php echo $order->user->email ?></b><p>
+            <p>Cliente solicitante: <b><?php echo $order->user->name ?></b></p>
+            <p>Telefone 1: <b><?php echo $order->user->phone1 ?></b></p>
+            <p>Telefone 2: <b><?php echo $order->user->phone2 ?></b></p>
+            <p>Email: <b><?php echo $order->user->email ?></b></p>
         </article>
 
 </div>
@@ -60,10 +60,10 @@
     <legend>Dados Pedido:</legend>
         <article>
           <p>Número do Pedido: <b><?php echo $order->id ?></b></p>
-          <p>Data de solicitação: <b><?php echo date("d/m/Y", strtotime($order->created_at)) ?></b></p>
-          <p>Dia e horário desejado para a <?php echo $order->delivery ?> do Pedido: <b> </b>
+          <p>Data de criação do pedido: <b><?php echo date("d/m/Y", strtotime($order->created_at)) ?></b></p>
+          <p>Data desejada para a <?php echo $order->delivery ?>: <b><?php echo date("d/m/Y", strtotime($order->delivery_date)) ?></b></p>
           <p>Modo de Entrega: <b><?php echo $order->delivery ?></b></p>
-          <p>Modo de Pagamento: <b>Dinheiro</b</p>
+          <p>Modo de Pagamento: <b><?php echo $order->payment_mode ?></b></p>
 
           <p>Itens de Pedido:</b></p>
             <table style="width:500px; min-width:500px; padding:3px" border="1">
@@ -106,11 +106,11 @@
         <article>
           <p>Distância de Entrega: <b><?php echo $order->distance ?>km.</b> </p>
           <p>Endereço de Entrega </p>
-          <p>CEP: <b><?php echo $order->address_id->zip_code ?></b>
-          <p>Rua: <b><?php echo $order->address_id->street.', '.$order->address_id->number ?></b>
-          <p>Bairro: <b><?php echo $order->address_id->neighborhood ?></b>
-          <p>Complemento: <b><?php echo $order->address_id->complement ?></b>
-          <p>Cidade: <b><?php echo $order->address_id->city.'/'.$order->address_id->uf ?></b>
+          <p>CEP: <b><?php echo $order->address_id->zip_code ?></b></p>
+          <p>Rua: <b><?php echo $order->address_id->street.', '.$order->address_id->number ?></b></p>
+          <p>Bairro: <b><?php echo $order->address_id->neighborhood ?></b></p>
+          <p>Complemento: <b><?php echo $order->address_id->complement ?></b></p>
+          <p>Cidade: <b><?php echo $order->address_id->city.'/'.$order->address_id->uf ?></b></p>
         </article>
     </fieldset>
 </div>
