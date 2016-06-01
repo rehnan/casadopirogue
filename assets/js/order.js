@@ -77,6 +77,11 @@ $(document).ready(function (){
 		return calculate_freight ($(this).val())
 	});
 
+	// $("#showMapsRoute").on( "click", function(){
+	// 	var opcao_delivery = $('input[name=opcaoDelivery]:checked').val();
+	// });
+
+
 
 	function calculate_freight (mode_delivery_selected) {
 		var order_id = $('#order_id').text();
@@ -104,6 +109,12 @@ $(document).ready(function (){
 
 			directionsDisplay.setMap(map);
 
+			google.maps.event.addDomListener(window, "resize", function() {
+					var center = map.getCenter();
+					google.maps.event.trigger(map, "resize");
+					map.setCenter(center);
+			});
+
 			$("#address_main").show();
 
 			directionsService.route(request, function(response, status) {
@@ -113,7 +124,7 @@ $(document).ready(function (){
 					var route = response.routes[0];
 					var distancia = route.legs[0].distance.text;
 					var distance = parseFloat(distancia.split(" ")[0]) ;
-					var result = distance * 0.29;
+					var result = (distance <= 5) ? 5.00 : Number(distance);
 					//var r = result.toFixed(2)
 					$("#distancia").text(distancia);
 					var frete = result.toFixed(2);
@@ -123,7 +134,9 @@ $(document).ready(function (){
 					var freight = frete.replace(',', '.');
 
 					directionsDisplay.setDirections(response);
-					return save_delivery_mode(order_id, mode, address, freight, distance);
+					save_delivery_mode(order_id, mode, address, freight, distance);
+
+					return response;
 				} else {
 					$("#distancia").text('Não Encontrada');
 				       $("#frete").text('Não Calculado.');
@@ -250,6 +263,8 @@ $(document).ready(function (){
 		if($('#table-total').is(':visible')) {
 			var order_id = $('#order_id').text();
 			var list_itens = $('#tbody-total').children();
+			var payment_mode = $('input[name=opcaoModoPagamento]:checked').val();
+
 			//console.log(list_itens);
 			var itens_to_update = new Array();
 
@@ -260,11 +275,12 @@ $(document).ready(function (){
 			var url = 'order/'+order_id+'/update';
 			$.ajax({
 				type: 'POST',
-				data: {'order_id' : order_id, 'itens' : itens_to_update},
+				data: {'order_id' : order_id, 'itens' : itens_to_update, 'payment_mode' : payment_mode},
 				url: url,
 				success: function(data, status) {
 					flash('info', 'Pedido atualizado com sucesso!');
-					return load_order_finish()
+					console.log(data);
+					return load_order_finish();
 				},
 				error: function(data, status) {
 					alert('Erro ao tentar atualizar o pedido');

@@ -60,8 +60,22 @@ class OrderController extends CI_Controller {
 
 		$order_id = $this->input->post("order_id");
 		$itens = $this->input->post("itens");
+		$json_result = array();
 
-		return $this->order->update_itens_amount($order_id, $itens);
+		if ($this->order->update_itens_amount($order_id, $itens)) {
+			array_push($json_result, array('status' => 200, 'msg' => 'Quantidade de Itens Atualizados com sucesso!'));
+		} else {
+			array_push($json_result, array('status' => 500, 'msg' => 'Ocorreu um erro ao tentar atualizar a quantidade de itens.'));
+		}
+
+		$payment_mode = $this->input->post("payment_mode");
+		if ($this->order->update_payment_mode($this->get_current_user()['id'], $order_id, $payment_mode)) {
+			array_push($json_result, array('status' => 200, 'msg' => 'Modo de pagamento atualizado com sucesso!'));
+		} else {
+			array_push($json_result, array('status' => 500, 'msg' => 'Ocorreu um erro ao tentar atualizar o modo de pagamento'));
+		}
+		echo  json_encode($json_result);
+		return json_encode($json_result);
 	}
 
 	public function add_item () {

@@ -90,11 +90,11 @@
 				<div >
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#collapseMaps"> <i class="fa fa-map-marker" aria-hidden="true"></i> Rota de Entrega
+							<a data-toggle="collapse" id="showMapsRoute" href="#collapseMaps"> <i class="fa fa-map-marker" aria-hidden="true"></i> Rota de Entrega
 							</a>
 						</h4>
 					</div>
-					<div id="collapseMaps" class="panel-collapse collapse">
+					<div id="collapseMaps" class="panel-collapse collapse in">
 						<div id="map" style="width:100%; height:300px"></div>
 					</div>
 				</div>
@@ -147,7 +147,7 @@
 
 			<div class="radio">
 				<label>
-					<input type="radio" name="opcaoModoPagamento" id="cartao-credito" value="Cartão" <?= ($order->payment_mode === 'Cartão') ? 'checked' : '' ?> >
+					<input type="radio" name="opcaoModoPagamento" id="cartao-credito" value="Cartão de Crédito" <?= ($order->payment_mode === 'Cartão de Crédito') ? 'checked' : '' ?> >
 					2. Cartão de Crédito
 				</label>
 			</div>

@@ -14,6 +14,7 @@ class Order_model extends CI_Model {
 	public $delivery;
 	public $approve_order_link;
 	public $disapprove_order_link;
+	public $payment_mode;
 
 	public function __construct() {
 		parent::__construct();
@@ -202,6 +203,13 @@ public function update_itens_amount ($order_id, $itens) {
 
 	return $this->item_order->set_amount_itens($order_id, $itens);
 
+}
+
+public function update_payment_mode ($user_id, $order_id, $payment_mode) {
+	$where =  array('id' =>$order_id, 'user_id' => $user_id);
+	$this->db->set('payment_mode', $payment_mode);
+	$this->db->where($where);
+	return ($this->db->update('order')) ? true : false;
 }
 
 public function update_status ($link, $status) {
