@@ -5,7 +5,7 @@
 		<div class="panel-heading" role="tab" id="collapseListGroupHeading<?= $order->id ?>">
 			<h4 class="panel-title">
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-responsive">
 						<thead>
 							<tr>
 								<th>Nº Pedido</th>
