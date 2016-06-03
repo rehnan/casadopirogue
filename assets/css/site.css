@@ -43,7 +43,7 @@ body{
 					.topo .navbar  a h1{
 						background: url(../img/logo3.png);
 						display: block;
-						width: 311px;
+						width: 303px;
 						height: 93px;
 						text-indent: -9999em;
 						background-repeat: no-repeat;
@@ -424,11 +424,11 @@ body{
 			margin: 0 auto;
 		}
 			.pg-cadastro .form-cadastro p{
-				font-size: 23px;
+				/* font-size: 23px;
 				text-transform: uppercase;
 				font-weight: 600;
 				color:#EF6700;
-				text-align:center;
+				text-align:center; */
 
 			}
 				.pg-cadastro .form-cadastro p i{
@@ -438,8 +438,11 @@ body{
 				position:relative;
 			    width: 100%;
 		        height: 35px;
-	            margin-bottom: 20px;
+	            margin:30px 0;
 			}
+				.pg-cadastro .form-cadastro .form-group label{
+					display:none;
+				}
 				.pg-cadastro .form-cadastro .form-group .form-control{
 					width:100%;
 					border-top: 0;
@@ -452,23 +455,32 @@ body{
 					-o-transition: inherit!important;
 					transition: inherit!important;
 				}
-			.pg-cadastro .form-cadastro .cadastrar{
-				width: 100%;
-				max-width: 150px;
-				border-radius: 4px;
-				border: 0;
-				background: #AFAFAF;
-				color: #fff;
-				font-weight: 600;
-				font-size: 14px;
-				outline: none;
-				height: 40px;
-				margin-top: 10px;
-				text-transform: uppercase;
+			.pg-cadastro .form-cadastro .btn-primary{
+				width: 100%!important;
+				max-width: 150px!important;
+				border-radius: 4px!important;
+				border: 0!important;
+				background: #AFAFAF!important;
+				color: #fff!important;
+				font-weight: 600!important;
+				font-size: 14px!important;
+				outline: none!important;
+				height: 40px!important;
+				margin-top: 10px!important;
+				text-transform: uppercase!important;
+				display:block;
 			}
-				.pg-cadastro .form-cadastro .cadastrar:hover{
-					background:#FF6D00;
+				.pg-cadastro .form-cadastro .btn-primary:hover{
+					background:#FF6D00!important;
 				}
+			.pg-cadastro a{
+				display:block;
+				text-decoration:underline;
+				color:#AFAFAF;
+				margin-top:10px;
+				font-style:italic;
+				font-size:15px;
+			}
 
 /*PÁGINA MINHA CONTA */
 	.pg-minha-conta{
@@ -783,6 +795,23 @@ body{
 				.pg-pedido .meus-pedios a{
 
 				}
+		.page-header{
+			min-height:70px;
+		}
+		.input-group-sm>.form-control, .input-group-sm>.input-group-addon, .input-group-sm>.input-group-btn>.btn{
+			height: 45px;
+			font-size: 16px;
+		}
+		.btn-sm, .btn-group-sm>.btn{
+			height: 40px;
+    		line-height: 30px;
+    		font-size: 15px;
+		}
+		.wizard>.actions a, .wizard>.actions a:hover, .wizard>.actions a:active{
+			line-height: 26px;
+    		font-size: 15px;
+    		height: 40px;
+		}
 	/* ÁREA DE CONFIRMAÇÕES */
 	.pg-pedido .table{
 		text-align:center;
@@ -827,7 +856,7 @@ body{
 					.pg-pedido #enviar:hover{
 						background:#00FFB8;
 					}
-					.pg-pedido .pedido-area{
+					 .tabela-pedido{
 						overflow-x: scroll;
 					}
 		/* CONFIRMAÇÃO */
@@ -878,7 +907,12 @@ body{
 			border-top:solid 1px #ccc;
 			border-left: inherit;
 		}
-		
+		.pg-minha-conta .sidebar{
+			min-height: 300px;
+		}
+		.pg-minha-conta .sidebar .menu{
+			text-align:center;
+		}
 	}
 	@media (max-width: 768px){
 		.topo .navbar .navbar-collapse .navbar-nav{
@@ -888,9 +922,28 @@ body{
 		.rodape ul li {
 		    margin: 0 0 0 30px;
 		}
+		.btn-primary{
+			margin:0 auto;
+		}
+		.pull-right{
+			float:inherit!important;
+
+    		margin: 10px 0;
+		}
+		.page-header{
+			text-align:center;
+		}
 		
 		
 		
+	}
+	@media (max-width: 445px){
+		.wizard>.steps>ul>li{
+			float:inherit!important;
+			width: 100%!important;
+			text-align: center;
+			font-size: 17px;
+		}
 	}
 	
 	@media (max-width: 425px){
@@ -898,6 +951,21 @@ body{
 			margin: 0px 0 20px 0;
 			display: block;
 			text-align: center;
+		}
+		.pg-login{
+			padding:10px;
+		}
+		.pg-login .cadastro p{
+			text-align:center;
+		}
+		.pg-login .login p{
+			text-align:center;
+		}
+		.borda{
+			border:none;
+		}
+		.pg-login .login .face{
+			max-width: 178px;
 		}
 		
 		.topo .navbar .navbar-collapse .navbar-nav{
@@ -916,6 +984,16 @@ body{
 			background: #F5F5F5;
 			border-top: solid 1px #F76A35;
 			border-bottom: solid 1px #F76A35;
+		}
+		.pg-cadastro .form-cadastro .btn-primary{
+			margin:0 auto;
+		}
+		.pg-cadastro a{
+			text-align:center;
+		}
+		.error{
+			text-align:center;
+			display:block;
 		}
 	}
 	

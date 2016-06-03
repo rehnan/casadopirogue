@@ -66,5 +66,4 @@
       </div>
 <div class="container">
 <?php require_once '_flashes.php'; ?>
-<!-- <div id="map" style="float:left;width:70%; height:100%"></div>
-<div id="directionsPanel" style="float:right;width:30%;height 100%"></div> -->
+

@@ -2,7 +2,7 @@
 	ID Pedido: <span id="order_id"><?=  (isset($order)) ? $order->id : '' ?></span> Status:  <span class="label label-primary"><?=  (isset($order)) ? $order->status : '' ?></span>
 <button class="btn btn-primary   pull-right" type="button">
 	<i class="fa fa-shopping-cart" title="Você possui <?=  (isset($order) && is_null($order->itens_amount)) ? 0 : $order->itens_amount ?> itens em seu carrinho" aria-hidden="true"></i> Carrinho <span class="badge" id="itens_amount_badge"><?=  (is_null($order->itens_amount)) ? 0 : $order->itens_amount ?></span>
-</button><br><br><br>
+</button>
 </div>
 
 <div id="example-basic">
@@ -43,7 +43,7 @@
 	<section>
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/delivery-policy">
 			<div class="form-inline">
-					<label  for="date-delivery">Data para Retirada/Entrega:</label><br>
+					<label  for="date-delivery">Data para Retirada/Entrega:</label>
 					<div class="input-group">
 					  <input type="date" class="form-control" id="date-delivery" name="date-delivery" value="<?= (isset($order->delivery_date)) ? $order->delivery_date : date("Y-m-d", now()); ?>">
 						<span class="input-group-btn">
@@ -53,14 +53,14 @@
 	      		</span>
 				 </div>
 			</div>
-			<br>
+			
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="retirada" value="Retirada" <?= ($order->delivery === 'Retirada') ? 'checked' : '' ?> >
 					<b>Retirar o pedido no estabelecimento.</b>
 				</label>
 			</div>
-			Ou <br>
+			Ou 
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="entrega" value="Entrega" <?= ($order->delivery === 'Entrega') ? 'checked' : '' ?>>
@@ -112,29 +112,30 @@
 
 	<h3>Confirmação do Pedido <i class="fa fa-thumbs-o-up" title="Modo de Entrega"></i></h3>
 	<section>
-		<table id="table-total" class="table table-striped">
-			<thead>
+		<div class="tabela-pedido">	
+			<table id="table-total" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Categoria</th>
+						<th>Valor Pacote (UN)</th>
+						<th>Quantidade</th>
+						<th>Subtotal</th>
+					</tr>
+				</thead>
+				<tbody id="tbody-total"></tbody>
 				<tr>
-					<th>Item</th>
-					<th>Categoria</th>
-					<th>Valor Pacote (UN)</th>
-					<th>Quantidade</th>
-					<th>Subtotal</th>
+					<td colspan="4"><b>Frete</b></td>
+					<td><span id="total-frete"></span></td>
 				</tr>
-			</thead>
-			<tbody id="tbody-total"></tbody>
-			<tr>
-				<td colspan="4"><b>Frete</b></td>
-				<td><span id="total-frete"></span></td>
-			</tr>
-			<td><b>Total Pedido</b></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><b><span id="total-pedido"></span></b></td>
-		</table>
-
-		<br>
+				<td><b>Total Pedido</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b><span id="total-pedido"></span></b></td>
+			</table>
+		</div>	
+		
 		<i class="fa fa-credit-card-alt" title="Modo de Pagamento"></i> Informe o modo de pagamento:
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/payment-mode">
 

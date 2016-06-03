@@ -42,60 +42,80 @@ function form_sign_up($action_url, $new_user,  $params) {
 
 	echo form_open($action_url, $params);
 
-	echo form_label("Nome ", "name");
-	echo form_input(array(
-		"name" => "user[name]",
-		"id" => "name",
-		"class" => "form-control",
-		"value" => $new_user->getName()
+	echo '<div class="form-group">';
+		echo form_label("Nome ", "name");
+		
+		echo form_input(array(
+			"name" => "user[name]",
+			"id" => "name",
+			"class" => "form-control",
+			"value" => $new_user->getName(),
+			"placeholder" => "Nome*"
 		));
-	echo "<p></p>";
+	echo "</div>";
 
-	echo form_label("E-mail ", "email");
-	echo form_input(array(
-		"name" => "user[email]",
-		"id" => "email",
-		"class" => "form-control",
-		"value" => $new_user->getEmail()
+	echo '<div class="form-group">';
+		echo form_label("E-mail ", "email");
+		echo form_input(array(
+			"name" => "user[email]",
+			"id" => "email",
+			"class" => "form-control",
+			"value" => $new_user->getEmail(),
+			"placeholder" => "Email*",
+			"type" => "emial"
 		));
-	echo "<p></p>";
+	echo "</div>";
 
-	echo form_label("Senha ", "password");
-	echo form_password(array(
-		"name" => "user[password]",
-		"id" => "password",
-		"class" => "form-control",
-		"value" => $new_user->getPassword()
+	echo '<div class="form-group">';
+		echo form_label("Senha ", "password");
+		echo form_password(array(
+			"name" => "user[password]",
+			"id" => "password",
+			"class" => "form-control",
+			"value" => $new_user->getPassword(),
+			"placeholder" => "senha*"
 		));
-	echo "<p></p>";
+		echo "</div>";
 
-	echo form_label("Confirmar Senha ", "password_confirm");
-	echo form_password(array(
-		"name" => "user[password_confirm]",
-		"id" => "password_confirm",
-		"class" => "form-control"
+	echo '<div class="form-group">';
+		echo form_label("Confirmar Senha ", "password_confirm");
+		echo form_password(array(
+			"name" => "user[password_confirm]",
+			"id" => "password_confirm",
+			"class" => "form-control",
+			"placeholder" => "confirmar senha*"
 		));
-	echo "<p>";
-	echo form_label("Telefone 1", "phone1");
-	echo form_input(array(
-		"name" => "user[phone1]",
-		"id" => "phone1",
-		"class" => "form-control",
-		"value" => $new_user->getPhone1()
+	echo "</div>";
+
+	echo '<div class="form-group">';
+		echo form_label("Telefone 1", "phone1");
+		echo form_input(array(
+			"name" => "user[phone1]",
+			"id" => "phone1",
+			"class" => "form-control",
+			"value" => $new_user->getPhone1(),
+			"placeholder" => "Telefone",
+			"type" => "tel"
 		));
-	echo "<p>";
-	echo form_label("Telefone 2 ", "phone2");
-	echo form_input(array(
-		"name" => "user[phone2]",
-		"id" => "phone2",
-		"class" => "form-control",
-		"value" => $new_user->getPhone2()
+	echo "</div>";
+
+	echo '<div class="form-group">';
+		echo form_label("Telefone 2 ", "phone2");
+		echo form_input(array(
+			"name" => "user[phone2]",
+			"id" => "phone2",
+			"class" => "form-control",
+			"value" => $new_user->getPhone2(),
+			"placeholder" => "Telefonr celular",
+			"type" => "tel"
 		));
-	echo "<p>";
-	echo form_button(array(
-		"class" => "btn btn-primary",
-		"content" => "Cadastrar",
-		"type" => "submit"
+		echo "</div>";
+
+
+		echo form_button(array(
+			"class" => "btn btn-primary",
+			"content" => "Cadastrar",
+			"type" => "submit"
 		));
 
 	echo form_close();
