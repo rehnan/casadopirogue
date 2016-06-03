@@ -1,3 +1,4 @@
+<?php $current_user = $this->session->get_userdata('current_user')['current_user']['id'] ?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -75,17 +76,16 @@
                            <div class="foto" title="Fernando">
 
                            </div>
-                           <span title="Fernando" ><?php echo   $this->session->get_userdata('current_user')['current_user']['name']; ?></span>
+                           <span title="user" ><?php echo   $this->session->get_userdata('current_user')['current_user']['name']; ?></span>
                            <p><?= anchor('logout', 'Sair', 'title="Sair" class="sair"') ?> <span><i class="fa fa-sign-out" aria-hidden="true"></i> </span></p>
                         </div>
                         <a href="<?= base_url('order') ?>" class="menu">Fazer Pedido</a>
                         <a href="<?= base_url('my-orders') ?>" class="menu">Meus pedidos</a>
                         <a href="<?= base_url('address') ?>" class="menu">Meus Endereços</a>
-                        <a href="" class="menu">Meus dados cadastrais</a>
+                        <a href='<?= base_url("account/{$current_user}/edit") ?>' class="menu">Meus dados cadastrais</a>
                      </div>
                   </div>
                   <div class="col-md-9" id="altura">
                         <div class="panel-body">
                         <?php require_once '_flashes.php'; ?>
                         <div id="ajax-flashes"></div>
-                       

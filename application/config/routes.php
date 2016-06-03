@@ -57,10 +57,10 @@ $route['default_controller'] = 'LoginController/index';
 $route['account']['GET'] = 'UserController/new_user/$user ';
 $route['account']['POST'] = 'UserController/create_user';
 
-$route['account/([1-9]+)/edit']['GET'] = 'UserController/edit_user';
-$route['account/([1-9]+)/edit']['POST'] = 'UserController/update_user';
+$route['account/(:num)/edit']['GET'] = 'UserController/edit_user';
+$route['account/(:num)/edit']['POST'] = 'UserController/update_user';
 
-$route['account/([1-9]+)']['GET'] = 'UserController/get_user';
+$route['account/([:num)']['GET'] = 'UserController/get_user';
 
 $route['account/new']['POST'] = 'UserController/find_user';
 
@@ -84,9 +84,9 @@ $route['order/itens/([a-z]+)']['GET'] = 'OrderController/get_itens';
 $route['order/delivery-mode']['POST'] = 'OrderController/set_delivery_mode';
 $route['order/delivery-date']['POST'] = 'OrderController/set_delivery_date';
 
-$route['order/([0-9]+)/total']['GET'] = 'OrderController/get_order_total';
-$route['order/([0-9]+)/finish']['GET'] = 'OrderController/finish_order';
-$route['order/([0-9]+)/update']['POST'] = 'OrderController/update_order';
+$route['order/(:num)/total']['GET'] = 'OrderController/get_order_total';
+$route['order/(:num)/finish']['GET'] = 'OrderController/finish_order';
+$route['order/(:num)/update']['POST'] = 'OrderController/update_order';
 
 $route['my-orders']['GET'] = 'OrderController/get_my_orders';
 
@@ -101,10 +101,10 @@ $route['itens']['POST'] = 'OrderController/add_item';
 $route['address']['GET'] = 'AddressController/index';
 $route['address/new']['POST'] = 'AddressController/create_address';
 $route['address/new']['GET'] = 'AddressController/new_address';
-$route['address/([0-9]+)/delete']['GET'] = 'AddressController/delete_address';
-$route['address/([0-9]+)/main']['GET'] = 'AddressController/check_main_address';
-$route['address/([0-9]+)/edit']['GET'] = 'AddressController/edit_address';
-$route['address/([0-9]+)/edit']['POST'] = 'AddressController/update_address';
+$route['address/(:num)/delete']['GET'] = 'AddressController/delete_address';
+$route['address/(:num)/main']['GET'] = 'AddressController/check_main_address';
+$route['address/(:num)/edit']['GET'] = 'AddressController/edit_address';
+$route['address/(:num)/edit']['POST'] = 'AddressController/update_address';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
