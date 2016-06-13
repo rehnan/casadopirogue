@@ -34,7 +34,7 @@ body{
 			z-index:2;
 		}
 			.topo .navbar .navbar-header{
-		
+
 			}
 				.topo .navbar  a{
 					display:block;
@@ -58,7 +58,7 @@ body{
 					background:red;
 				}
 			.topo .navbar .navbar-collapse{
-	
+
 			}
 				.topo .navbar .navbar-collapse .navbar-nav{
 					margin: 0px 30px 0 0;
@@ -67,7 +67,7 @@ body{
 					padding: 30px 0 0;
 				}
 					.topo .navbar .navbar-collapse .navbar-nav li{
-		
+
 					}
 						.topo .navbar .navbar-collapse .navbar-nav li a{
 							text-transform:uppercase;
@@ -96,7 +96,7 @@ body{
 			list-style:none;
 			padding:0;
 			margin:0;
-			text-align:center;			
+			text-align:center;
 		}
 			.rodape ul li{
 				display: inline-block;
@@ -120,7 +120,7 @@ body{
 					margin:0;
 				}
 		.copyright{
-		
+
 			text-align: center;
 			width: 100%;
 			margin-top: 70px;
@@ -149,25 +149,25 @@ body{
 		}
 	.alert-success{
 		background-color: #FF6D00!important;
-    	border-color: #fff!important; 
+    	border-color: #fff!important;
     	color: #fff!important;
     	font-size: 16px!important;
 	}
 	.alert-info{
 		background-color: #FF6D00!important;
-    	border-color: #fff!important; 
+    	border-color: #fff!important;
     	color: #fff!important;
     	font-size: 16px!important;
 	}
 	.label-primary{
 		background-color: #FF6D00!important;
-    	border-color: #fff!important; 
+    	border-color: #fff!important;
     	color: #fff!important;
     	font-size: 12px!important;
 	}
 	.btn-primary{
 		background-color: #FF6D00!important;
-    	border-color: #fff!important; 
+    	border-color: #fff!important;
     	color: #fff!important;
     	font-size: 17px!important;
 	}
@@ -188,7 +188,7 @@ body{
 	.wizard>.content>.body{
 		position: inherit!important;
 	}
-	
+
 	.error{
 		color: red;
 		text-transform: uppercase;
@@ -198,7 +198,7 @@ body{
 	.pg{
 
 	}
-	
+
 
 		.pg input,textarea {
 
@@ -457,7 +457,8 @@ body{
 				}
 			.pg-cadastro .form-cadastro .btn-primary{
 				width: 100%!important;
-				max-width: 150px!important;
+				/* max-width: 150px!important; */
+				max-width: auto;
 				border-radius: 4px!important;
 				border: 0!important;
 				background: #AFAFAF!important;
@@ -895,14 +896,14 @@ body{
 
 /* MÉDIA */
 	@media (max-width: 1024px) {
-		
+
 		.rodape ul li{
 			margin:0 0 0 40px;
 		}
-		
+
 	}
 	@media (max-width: 991px) {
-		
+
 		.borda{
 			border-top:solid 1px #ccc;
 			border-left: inherit;
@@ -918,7 +919,7 @@ body{
 		.topo .navbar .navbar-collapse .navbar-nav{
 			padding:0;
 		}
-		
+
 		.rodape ul li {
 		    margin: 0 0 0 30px;
 		}
@@ -933,9 +934,9 @@ body{
 		.page-header{
 			text-align:center;
 		}
-		
-		
-		
+
+
+
 	}
 	@media (max-width: 445px){
 		.wizard>.steps>ul>li{
@@ -945,7 +946,7 @@ body{
 			font-size: 17px;
 		}
 	}
-	
+
 	@media (max-width: 425px){
 		.rodape ul li{
 			margin: 0px 0 20px 0;
@@ -967,7 +968,7 @@ body{
 		.pg-login .login .face{
 			max-width: 178px;
 		}
-		
+
 		.topo .navbar .navbar-collapse .navbar-nav{
 			width:100%;
 			margin:0;
@@ -976,9 +977,9 @@ body{
 			text-align:left;
 		}
 		.topo .navbar .navbar-collapse .navbar-nav li a{
-			
+
 			line-height: 10px;
-			
+
 		}
 		.topo .navbar .navbar-collapse{
 			background: #F5F5F5;
@@ -996,7 +997,7 @@ body{
 			display:block;
 		}
 	}
-	
+
 	/* DEVELOPERS */
 .developers{
 	background:#4A4A4A;
@@ -1010,5 +1011,5 @@ body{
 		color:#fff;
 	}
 		.developers a b{
-	
+
 		}

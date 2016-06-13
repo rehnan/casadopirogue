@@ -66,7 +66,7 @@ class UserController extends CI_Controller {
 		if($this->getUserModel()->create($this->user)) {
 			$user = $this->getUserModel()->findByEmail($this->user->getEmail());
 			$this->senEmail($user);
-			flash($this, 'flashInfo', 'Cadastro realizado com sucesso! Um email foi enviado para sua conta de email com o link de ativação desta conta.');
+			flash($this, 'flashInfo', 'Cadastro realizado com sucesso! Um email foi enviado para sua conta de email com o link de ativação de sua conta.');
 			redirect('login');
 		}
 	}
@@ -190,23 +190,23 @@ class UserController extends CI_Controller {
 
 	public function validate_post() {
 
-		$this->form_validation->set_rules('user[name]', 'Name', 'trim|required|max_length[50]',  array(
+		$this->form_validation->set_rules('user[name]', 'Nome', 'trim|required|max_length[50]',  array(
 			'required'      => 'Por favor, informe seu Nome.',
 			'max_length'     => 'Seu nome deve possuir no máximo 50 caracteres'
 		));
 
-		$this->form_validation->set_rules('user[email]', 'Email', 'trim|required|max_length[30]',  array(
+		$this->form_validation->set_rules('user[email]', 'E-mail', 'trim|required|max_length[30]',  array(
 			'required'      => 'Por favor, informe seu  Email.',
 			'max_length'     => 'Seu %s deve possuir no máximo 30 caracteres'
 		));
 
-		$this->form_validation->set_rules('user[password]', 'Password', 'trim|required|min_length[6]|max_length[20]', array(
+		$this->form_validation->set_rules('user[password]', 'Senha', 'trim|required|min_length[6]|max_length[20]', array(
 			'required'      => 'Por favor, informe sua Senha.',
 			'min_length'     => 'Sua %s deve possuir no mínimo 6 caracteres'
 		));
 
-		$this->form_validation->set_rules('user[password_confirm]', 'Password Confirm', 'trim|required|min_length[6]', array(
-			'required'      => 'Por favor, informe seu sua Confirmação de Senha',
+		$this->form_validation->set_rules('user[password_confirm]', 'Confirmação de Senha', 'trim|required|min_length[6]', array(
+			'required'      => 'Por favor, informe a Confirmação de sua Senha',
 			'min_length'     => 'Sua %s deve possuir no mínimo 6 caracteres'
 		));
 
@@ -266,7 +266,7 @@ class UserController extends CI_Controller {
 		//autenticar usuário e redirecionar para o dashboard; $_SERVER['REQUEST_URI']
 	}
 
-	return redirect('404_override');
+	return show_404();
 }
 
 public function senEmail($user) {
@@ -302,6 +302,138 @@ private function get_current_user () {
 	return $this->session->get_userdata('current_user')['current_user'];
 }
 
+public function password_forgot () {
+	if ($this->session->has_userdata('current_user')) { return redirect('dashboard'); }
+	$this->setTitle('Recuperar Senha');
+
+	$datas = array(
+		'page_title' => $this->getTitle()
+	);
+
+	return $this->template->load('login', 'users/password_forgot', $datas);
+}
+
+public function password_recovery () {
+
+	if ($this->session->has_userdata('current_user')) { return redirect('dashboard'); }
+
+	$this->form_validation->set_rules('user[email]', 'E-mail', 'trim|required|valid_email', array(
+		'required'      => 'Por favor, informe seu seu %s.',
+		'valid_email' => 'E-mail inválido!'
+	));
+
+	$this->form_validation->set_error_delimiters('<font size="3" color="red" class="error">', '</font><br>');
+
+	$email = $this->input->post("user[email]");
+
+	$datas = array(
+		'page_title' => $this->getTitle(),
+		'email' => $email
+	);
+
+	if (!$this->form_validation->run()) {
+		flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
+		return $this->template->load('login', 'users/password_forgot', $datas);
+	}
+
+	$user = $this->userInstance->generate_link_reset_password($email);
+	if ($user) {
+		  $this->send_email_link_recovery($user);
+			$datas['email'] = '';
+			flash($this, 'flashSuccess', 'Um link de recuperação de senha foi enviado para seu e-mail!');
+			return redirect('login');
+	}
+
+	flash($this, 'flashError', 'Email inexistente!');
+	return $this->template->load('login', 'users/password_forgot', $datas);
+}
+
+public function send_email_link_recovery ($user) {
+
+	$path_image = "http://{$_SERVER['SERVER_NAME']}".base_url('assets/img/logo3.png');
+	$data = array(
+		'fileExt' => get_mime_by_extension($path_image),
+		'image'   => base64_encode(file_get_contents($path_image)),
+		'user'   => $user
+	);
+
+	$this->email->clear();
+	$this->load->library('email');
+	$this->email->initialize($this->config->item('config_email'));
+	$this->output->set_content_type('text/plain', 'UTF-8');
+	//$this->email->set_newline("\r\n");
+	$this->email->to($user->getEmail());
+	$this->email->from('contato@casadopirogue.com.br', 'Casa do Pirogue');
+	$this->email->subject('[Recuperação de Senha]');
+	$body = $this->load->view('emails/password_recovery', $data, TRUE);
+	$this->email->message($body);
+	$this->email->send();
+}
+
+public function password_update_form () {
+
+	$this->setTitle('Atualizar Senha');
+	$hash_recovery_password = $this->uri->segment(3);
+
+	$user = $this->userInstance->find_link_reset_password($hash_recovery_password);
+	if (!$user) {
+		return show_404();
+	}
+
+	$datas = array(
+		'page_title' => $this->getTitle(),
+		'user_id' => $user->id,
+		'reset_password_link' => $user->reset_password_link
+	);
+
+	flash($this, 'flashInfo', 'Informe sua nova senha');
+	return $this->template->load('login', 'users/password_recovery', $datas);
+
+}
+
+public function password_update () {
+
+	$this->form_validation->set_rules('user[password]', 'Senha', 'trim|required|min_length[6]|max_length[20]', array(
+		'required'      => 'Por favor, informe sua nova Senha.',
+		'min_length'     => 'Sua %s deve possuir no mínimo 6 caracteres'
+	));
+
+	$this->form_validation->set_rules('user[password_confirm]', 'Confirmação de Senha', 'trim|required|min_length[6]', array(
+		'required'      => 'Por favor, informe a confirmação da nova Senha',
+		'min_length'     => 'Sua %s deve possuir no mínimo 6 caracteres'
+	));
+
+	$this->form_validation->set_error_delimiters('<font size="3" color="red" class="error">', '</font><br>');
+
+	$password = $this->input->post("user[password]");
+	$password_confirm = $this->input->post("user[password_confirm]");
+	$user_id = $this->input->post("user[id]");
+	$hash_recovery_password = $this->uri->segment(3);
+
+	$datas = array(
+		'page_title' => $this->getTitle(),
+		'password' => $password,
+		'password_confirm' => $password_confirm,
+		'user_id' => $user_id,
+		'reset_password_link' => $hash_recovery_password
+	);
+
+	if (!$this->form_validation->run()) {
+		flash($this, 'flashError', 'Pussui(em) erro(s) no formulário!');
+		return $this->template->load('login', 'users/password_recovery', $datas);
+	}
+
+	if ($password !== $password_confirm) {
+		flash($this, 'flashError', 'Senha informada diferente de senha de confirmação!');
+		return $this->template->load('login', 'users/password_recovery', $datas);
+	}
+
+	if ($this->userInstance->password_update($user_id, $hash_recovery_password, $password)) {
+		flash($this, 'flashSuccess', 'Sua senha foi atualizada com sucesso!');
+		return redirect('login');
+	}
+
+}
 
 }
 

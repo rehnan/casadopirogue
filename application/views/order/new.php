@@ -53,14 +53,14 @@
 	      		</span>
 				 </div>
 			</div>
-			
+
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="retirada" value="Retirada" <?= ($order->delivery === 'Retirada') ? 'checked' : '' ?> >
 					<b>Retirar o pedido no estabelecimento.</b>
 				</label>
 			</div>
-			Ou 
+			Ou
 			<div class="radio">
 				<label>
 					<input type="radio" name="opcaoDelivery" id="entrega" value="Entrega" <?= ($order->delivery === 'Entrega') ? 'checked' : '' ?>>
@@ -112,7 +112,7 @@
 
 	<h3>Confirmação do Pedido <i class="fa fa-thumbs-o-up" title="Modo de Entrega"></i></h3>
 	<section>
-		<div class="tabela-pedido">	
+		<div class="tabela-pedido">
 			<table id="table-total" class="table table-striped">
 				<thead>
 					<tr>
@@ -134,8 +134,8 @@
 				<td></td>
 				<td><b><span id="total-pedido"></span></b></td>
 			</table>
-		</div>	
-		
+		</div>
+
 		<i class="fa fa-credit-card-alt" title="Modo de Pagamento"></i> Informe o modo de pagamento:
 		<form id="delivery-policy-form" name="delivery-policy-form" method="POST" action="/payment-mode">
 

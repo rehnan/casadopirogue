@@ -106,5 +106,13 @@ $route['address/(:num)/main']['GET'] = 'AddressController/check_main_address';
 $route['address/(:num)/edit']['GET'] = 'AddressController/edit_address';
 $route['address/(:num)/edit']['POST'] = 'AddressController/update_address';
 
+$route['user/password_forgot']['GET'] = 'UserController/password_forgot';
+$route['user/password_forgot']['POST'] = 'UserController/password_recovery';
+
+$route['user/password_recovery/(:any)']['GET'] = 'UserController/password_update_form';
+$route['user/password_recovery/(:any)']['POST'] = 'UserController/password_update';
+
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

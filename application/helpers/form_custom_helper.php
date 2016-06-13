@@ -33,8 +33,9 @@ function form_sign_in($action_url, $login_url = '', $user) {
 			"content" => "Entrar"
 		));
 	echo "<a href='$login_url' class='face'><i class='fa fa-facebook' title='Login Facebook' aria-hidden='true'></i>Entrar com facebook</a>" ;
+	echo "<br><br>";
+	echo anchor('user/password_forgot', 'Esqueci minha senha', 'title="Recuperar Senha"');
 	echo '</div>';
-
 	echo form_close();
 }
 
@@ -44,7 +45,7 @@ function form_sign_up($action_url, $new_user,  $params) {
 
 	echo '<div class="form-group">';
 		echo form_label("Nome ", "name");
-		
+
 		echo form_input(array(
 			"name" => "user[name]",
 			"id" => "name",

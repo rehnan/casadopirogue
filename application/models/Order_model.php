@@ -87,14 +87,13 @@ public function get_order ($order_id, $user_id) {
 
 public function get_list_orders ($user_id) {
 
-	$where =  array('user_id' => $user_id, 'status' => 'Pendente');
+	$where =  array('user_id' => $user_id);
 
 	$this->db->select('*');
 	$this->db->from('order');
 	$this->db->where($where);
-	$this->db->or_where('status =', 'Aprovado');
-	$this->db->or_where('status =', 'Cancelado');
-	$this->db->order_by("id", "DESC");
+	$this->db->where('status !=', 'Aberto');
+	$this->db->order_by("id, status", "DESC");
 
 	$query = $this->db->get();
 	$orders = $query->result();

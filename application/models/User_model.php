@@ -86,7 +86,52 @@ class User_model extends CI_Model {
 		return false;
 	}
 
-     //Getters and Setters
+	public function generate_link_reset_password ($email) {
+
+			$user = $this->findByEmail($email);
+			if (!$user) { return false; };
+
+			$linkResetPswd = str_shuffle(sha1($user->getEmail().$user->getName()).sha1(date("Y-m-d H:i:s")));
+
+			$where =  array('email' => $email);
+			$this->db->set('reset_password_link', $linkResetPswd);
+			$this->db->where($where);
+
+			if ($this->db->update("user")) {
+				$user = $this->findById($user->id);
+				return $user;
+			}
+			return false;
+	}
+
+	public function find_link_reset_password ($hash) {
+
+		$where =  array('reset_password_link' => $hash);
+		$this->db->select('*');
+		$this->db->from('user');
+		$this->db->where($where);
+
+		$query = $this->db->get();
+
+		return ($query->num_rows() > 0) ? $query->custom_result_object('user_model')[0] : false;
+	}
+
+	public function password_update ($user_id, $hash, $pswd) {
+
+		$user = $this->find_link_reset_password($hash);
+
+		if ($user && $user->id === $user_id) {
+			$password = sha1($pswd);
+			$where =  array('id' => $user_id);
+			$this->db->set('password', $password);
+			$this->db->set('reset_password_link', null);
+			$this->db->where($where);
+			return ($this->db->update("user")) ? true : false;
+		}
+		return false;
+	}
+
+  //Getters and Setters
 	public function getId() {
 		return $this->id;
 	}
