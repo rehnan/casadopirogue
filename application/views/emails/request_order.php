@@ -42,8 +42,8 @@
 
 <div style="margin-left: 30px">
 <article>
-  <p style="color:green"> Aceitar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/order/to_approve/{$order->approve_order_link}"  ?> title="Clique para aprovar este pedido"> Aceitar Pedido </a></p>
-  <p style="color:red"> Recusar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/order/to_disapprove/{$order->disapprove_order_link}"  ?> title="Clique para rejeitar este pedido"> Rejeitar Pedido </a></p>
+  <p style="color:green"> Aceitar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/delivery/order/to_approve/{$order->approve_order_link}"  ?> title="Clique para aprovar este pedido"> Aceitar Pedido </a></p>
+  <p style="color:red"> Recusar Requisição de Pedido: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/delivery/order/to_disapprove/{$order->disapprove_order_link}"  ?> title="Clique para rejeitar este pedido"> Rejeitar Pedido </a></p>
 </article>
 <h4>Informações para Contato: </h4>
         <article>
@@ -64,7 +64,7 @@
           <p>Data desejada de Entrega/Retirada: <b><?php echo date("d/m/Y", strtotime($order->delivery_date)) ?></b></p>
           <p>Dia e horário desejado para a <?php echo $order->delivery ?> do Pedido: <b> </b>
           <p>Modo de Entrega: <b><?php echo $order->delivery ?></b></p>
-          <p>Modo de Pagamento: <b><?php echo $order->delivery ?></b</p>
+          <p>Modo de Pagamento: <b><?php echo $order->payment_mode ?></b</p>
 
           <p>Itens de Pedido:</b></p>
             <table style="width:500px; min-width:500px; padding:3px" border="1">

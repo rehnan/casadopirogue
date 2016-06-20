@@ -102,7 +102,6 @@ class LoginController extends CI_Controller {
 		$user_found = $this->getUserModel()->findByEmail($user->getEmail());
 
 		if ($user_found && $user_found->getActive() == true && $this->comparePasswords($user->getPassword(), $user_found->getPassword())) {
-			$this->destroy_session();
 			$this->create_session($user_found);
 			flash($this, 'flashSuccess', 'Login realizado com sucesso!');
 			return redirect('dashboard');

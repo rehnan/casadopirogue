@@ -148,8 +148,8 @@
 
 			<div class="radio">
 				<label>
-					<input type="radio" name="opcaoModoPagamento" id="cartao-credito" value="Cartão de Crédito" <?= ($order->payment_mode === 'Cartão de Crédito') ? 'checked' : '' ?> >
-					2. Cartão de Crédito
+					<input type="radio" name="opcaoModoPagamento" id="cartao-debito" value="Cartão de Débito" <?= ($order->payment_mode === 'Cartão de Débito') ? 'checked' : '' ?> >
+					2. Cartão de Débito
 				</label>
 			</div>
 

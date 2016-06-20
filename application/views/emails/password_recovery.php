@@ -31,7 +31,7 @@
     <div style="margin-left: 30px">
       <article>
         <p>Olá, <?= $user->name ?>!</p>
-        <p>Clique no link para atualizar sua senha: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/casadopirogue/user/password_recovery/{$user->reset_password_link}"  ?> title="Clique para atualizar sua senha"> Atualizar Senha </a></p>
+        <p>Clique no link para atualizar sua senha: <a href=<?php echo "http://{$_SERVER['SERVER_NAME']}/delivery/user/password_recovery/{$user->reset_password_link}"  ?> title="Clique para atualizar sua senha"> Atualizar Senha </a></p>
       </article>
     </div>
   </section>
